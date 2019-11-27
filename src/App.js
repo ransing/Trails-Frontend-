@@ -90,16 +90,22 @@ class App extends React.Component {
                   </li>
 
                   <li>
-                    <i class="fa fa-github" style={{"font-size":"20px"}}></i>
+                    <a href="/events" class="nav-links"> All Events  </a>
                   </li>
+
+                  <li>
+                    <a href="/main" class="nav-links"> All Trails</a>
+                  </li>
+
+                  
                 </ul>
               </nav>
           {/* // NavBar ends  */}
 
       <Switch>
         <Route exact path='/'  render={(routerProps) => {return <Login gotToken={this.gotToken} {...routerProps}/>}} />
-        <Route path={'/trails'} component={Trails} />
-        <Route path={'/events'} component={Events} />
+        <Route path={'/trails'} component={TrailsContainer} />
+        <Route path={'/events'} component={EventsContainer} />
         <Route exact path={'/main'} component={HomePage} />
       </Switch>
 

@@ -84,7 +84,7 @@ export default class Login extends Component {
       {
         this.state.logIn 
         ? 
-        <div className="container">
+        <div className="inset">
           <h2 id="title" style={{"font-size": "24px" }}>Log In </h2>
           <button class="accountbutton" style={{"font-family":"Special Elite", "font-size":"14 px", 'padding': '4px 12px', 'border-radius': '50px', 'margin-top': '16px'}} 
           onClick={ () => this.setState({ logIn: false }) }>Sign Up</button><br/>

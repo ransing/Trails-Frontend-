@@ -4,9 +4,59 @@ import EventForm from './EventForm'
 
 export default class Trail extends Component {
 
+    state = {
+        addEventTrail: "",
+        addEventTrailName: "",
+        token: localStorage.token
+    }
 
-    addEvent = () => {
-        console.log("click")
+    addEvent = (props) => {
+        this.setState({
+            addEventTrail: this.props.trailItem.id,
+            addEventTrailName: this.props.trailItem.name
+        })
+        console.log(this.props.trailItem.id)
+    }
+
+    cancelForm = () => {
+        this.setState({
+            addEventTrail: ""
+        })
+    }
+    
+
+    alertCreate = () => {
+        alert("created event")
+    }
+
+
+    onNewEventSubmit = (event) => {
+        // e.preventDefault()
+        console.log(event)
+        fetch("http://localhost:3000/events", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'Application/json',
+                'Accept': 'Application/json',
+                "Authorization": localStorage.token
+            },
+            body: JSON.stringify({
+                event: {
+                    ...event,
+                    trail_id: this.props.trailItem.id,
+                }
+            })
+        })
+        .then(r => r.json())
+        .then( r => {
+            console.log(r)
+            // debugger
+        }
+        ,this.alertCreate()
+        )
+        this.setState({
+            addEventTrail: ""
+        })
     }
 
   render() {
@@ -15,8 +65,11 @@ export default class Trail extends Component {
 
     <React.Fragment>
         <div>
-           
-            
+           {this.state.addEventTrail !== "" ?
+                    <EventForm trailId={this.props.trailItem.id} cancelForm={this.cancelForm} addEventTrailName={this.state.addEventTrailName} onNewEventSubmit={this.onNewEventSubmit} />
+                    : 
+                    null
+            }
         </div>
             <Flippy
                     flipOnHover={false} // default false
@@ -30,7 +83,7 @@ export default class Trail extends Component {
 
             <FrontSide
                     style={{
-                        backgroundColor: '#41669d',
+                        backgroundColor: '#faf0d8',
                     }}
                 >
                     {this.props.trailItem.name}
