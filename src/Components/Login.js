@@ -11,6 +11,7 @@ export default class Login extends Component {
   }
 
   handleChange = event => {
+    //   console.log(this.state)
     this.setState({
       [event.target.name]: event.target.value
     })
@@ -18,7 +19,7 @@ export default class Login extends Component {
 
   logInSubmitted = (event) => {
     event.preventDefault()
-    // console.log("clicked")
+    console.log("clicked login")
     // make a fetch
     fetch("http://localhost:3000/login", {
       method: "POST",
@@ -46,7 +47,7 @@ export default class Login extends Component {
 
   signupSubmit = (event) => {
     event.preventDefault()
-    // console.log("clicked")
+    console.log("clicked submit ")
     // make a fetch
     fetch("http://localhost:3000/signup", {
       method: "POST",
@@ -88,7 +89,8 @@ export default class Login extends Component {
           <h2 id="title" style={{"font-size": "24px" }}>Log In </h2>
           <button class="accountbutton" style={{"font-family":"Special Elite", "font-size":"14 px", 'padding': '4px 12px', 'border-radius': '50px', 'margin-top': '16px'}} 
           onClick={ () => this.setState({ logIn: false }) }>Sign Up</button><br/>
-          <br/><form className="form-signin" onSubmit={ this.logInSubmitted }>
+          <br/>
+                <form className="form-signin" onSubmit={ this.logInSubmitted }>
             <div>
             <label  id="label" style={{"font-family":"Special Elite"}} htmlFor="log_in_username">Username</label>
             <input  id="log_in_username" 
@@ -109,7 +111,7 @@ export default class Login extends Component {
                     value={ this.state.password } 
                     />
             </div>
-            <input class="submit-button" style={{'padding': '4px 12px', 'border-radius': '50px', 'margin-top': '16px', "font-family":"Special Elite", "font-size":"16 px"}} type="submit" />
+            <input onClick={this.logInSubmitted} class="submit-button" style={{'padding': '4px 12px', 'border-radius': '50px', 'margin-top': '16px', "font-family":"Special Elite", "font-size":"16 px"}} type="submit" />
           </form>
         </div>
         :

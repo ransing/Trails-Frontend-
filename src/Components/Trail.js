@@ -29,6 +29,34 @@ export default class Trail extends Component {
         alert("created event")
     }
 
+    alertFavorite = () => {
+        alert("added to your favorite")
+    }
+
+
+    addFavorite = (event) => {
+        fetch("http://localhost:3000/user_trails", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'Application/json',
+                'Accept': 'Application/json',
+                'Authorization': localStorage.token
+            },
+            body: JSON.stringify({
+                user_trail: {
+                    trail_id:this.props.trailItem.id 
+                }
+            })
+        })
+        .then(r => r.json())
+        .then(r => {
+            this.alertFavorite()
+            console.log("user_trail")
+                }
+        )
+        
+    }
+
 
     onNewEventSubmit = (event) => {
         // e.preventDefault()
@@ -83,7 +111,7 @@ export default class Trail extends Component {
 
             <FrontSide
                     style={{
-                        backgroundColor: '#faf0d8',
+                        backgroundColor: '#384944',
                     }}
                 >
                     {this.props.trailItem.name}
@@ -94,6 +122,7 @@ export default class Trail extends Component {
                     style={{ backgroundColor: '#175852'}}>
                     <img src={`${this.props.trailItem.imgMedium}`} style={{"max-width": "100%", "max-height": "100%"}}></img>
                     <button onClick={this.addEvent}> Add Event </button>
+                    <button onClick={this.addFavorite}> Add Favorite </button>
             </BackSide>
 
             </Flippy>

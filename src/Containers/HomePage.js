@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import Login from '../Components/Login';
 import NavBar from '../Components/NavBar';
 import TrailsContainer from './TrailsContainer';
-import EventsContainer from './EventsContainer'
+import EventsContainer from './EventsContainer';
+import {WrappedMap} from '../Components/Map'
 
 
 export default class HomePage extends Component {
@@ -34,6 +35,18 @@ export default class HomePage extends Component {
         return (
             <div>
                 <a> Hello </a>
+                    <div style={{width: '100vw', height: '100vw'}}>
+                        <WrappedMap
+                        googleMapURL={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=`}
+                        loadingElement={<div style={{ height: '100%'}} />}
+                        containerElement={<div style={{ height: '100%'}} />}
+                        mapElement={<div style={{height: '100%'}} />}
+                        />
+                    </div>
+
+
+
+
                 <TrailsContainer trailArray={this.state.trails}/>
             </div>
         )

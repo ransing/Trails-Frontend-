@@ -3,6 +3,39 @@ import React, { Component } from 'react';
 import moment from 'moment';
 
 export default class Event extends Component {
+
+
+    alertCreate = () => {
+        alert("added to your events")
+    }
+
+    attendEvent = () => {
+        console.log("attend")
+        fetch("http://localhost:3000/user_events",{
+            method: 'POST',
+            headers: {
+                'Content-Type': 'Application/json',
+                'Accept': 'Application/json',
+                'Authorization': localStorage.token
+            },
+            body: JSON.stringify({
+                user_events: {
+                    event_id: this.props.event.id
+                }
+            })
+        })
+        .then(r => r.json())
+        .then( r => {
+            this.alertCreate()
+
+            console.log("user_event");
+        })
+    }
+
+
+    editEvent = () => {
+        console.log("edit");
+    }
     
 
     render() {
@@ -33,14 +66,18 @@ export default class Event extends Component {
 
                         <br/>
 
-                        <p> Date {this.props.event.date}</p>
+                        <button onClick={this.attendEvent}> Attend Event</button>
+
+                        <br/>
+
+                        <p> Date {moment(this.props.event.date).format('dddd')} {this.props.event.date} </p>
 
                         <br/>
 
                         <p>Time {moment(this.props.event.time).format('hh:mm')}</p>
 
                         <button onClick={() => this.props.deleteEvent(this.props.event.id)}> Delete Event </button>
-                        <button> Edit Event</button>
+                        <button onClick={this.editEvent}> Edit Event</button>
 
                         </div>
                     </div>
