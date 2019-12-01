@@ -10,6 +10,23 @@ export default class Trail extends Component {
         token: localStorage.token
     }
 
+    componentDidMount(){
+        // console.log(this.props.state)
+        fetch('http://localhost:3000/user_trails',{
+            method: 'GET',
+            headers: {
+                'Content-Type': 'Application/json',
+                'Accept': 'Application/json',
+                'Authorization': localStorage.token
+            },
+        })
+        .then(r => r.json())
+        .then(r => {
+            // console.log(r)
+        })
+
+    }
+
     addEvent = (props) => {
         this.setState({
             addEventTrail: this.props.trailItem.id,
@@ -66,7 +83,7 @@ export default class Trail extends Component {
             headers: {
                 'Content-Type': 'Application/json',
                 'Accept': 'Application/json',
-                "Authorization": localStorage.token
+                "Authorization": `Bearer ${localStorage.token}`
             },
             body: JSON.stringify({
                 event: {

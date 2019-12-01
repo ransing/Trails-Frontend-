@@ -51,7 +51,7 @@ class App extends React.Component {
   }
 
   componentDidMount(){
-    console.log("componentDidMount", localStorage.token);
+    console.log("componentDidMount", localStorage.token, this.state);
     if (localStorage.token) {
       this.setState({
         token: localStorage.token,
@@ -104,7 +104,7 @@ class App extends React.Component {
 
       <Switch>
         <Route exact path='/'  render={(routerProps) => {return <Login gotToken={this.gotToken} {...routerProps}/>}} />
-        <Route path={'/trails'} component={TrailsContainer} />
+        <Route path={'/trails'} component={TrailsContainer} state={this.state.loggedInUserId}/>
         <Route path={'/events'} component={EventsContainer} />
         <Route exact path={'/main'} component={HomePage} />
       </Switch>

@@ -28,13 +28,13 @@ export default class Event extends Component {
         .then( r => {
             this.alertCreate()
 
-            console.log("user_event");
+            console.log(r);
         })
     }
 
 
     editEvent = () => {
-        console.log("edit");
+        console.log(this.props.userId, this.props.event.event_users_id_array, this.props.event.create_events.id);
     }
     
 
@@ -63,6 +63,8 @@ export default class Event extends Component {
                         <div class="card__content">
                         <h1 class="card__title">{null}</h1>
                         <p>{this.props.event.name}</p>
+                        <br/>
+                        <p> Trail: {this.props.event.trail.name}</p>
 
                         <br/>
 
@@ -75,8 +77,13 @@ export default class Event extends Component {
                         <br/>
 
                         <p>Time {moment(this.props.event.time).format('hh:mm')}</p>
+                        
+                        {this.props.event.event_users_id_array.includes(parseInt(this.props.event.create_events.id)) ?
+                        (<button> Delete this event </button>) :
+                        null
+                        }
 
-                        <button onClick={() => this.props.deleteEvent(this.props.event.id)}> Delete Event </button>
+                        {/* <button onClick={() => this.props.deleteEvent(this.props.event.id)}> Delete Event </button> */}
                         <button onClick={this.editEvent}> Edit Event</button>
 
                         </div>

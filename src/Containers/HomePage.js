@@ -25,7 +25,7 @@ export default class HomePage extends Component {
             this.setState({
                 trails: [...this.state.trails, trailData]
             })
-            console.log(this.state.trails)
+            console.log(this.props.state)
         }
         )
     }
@@ -47,7 +47,7 @@ export default class HomePage extends Component {
 
 
 
-                <TrailsContainer trailArray={this.state.trails}/>
+                <TrailsContainer trailArray={this.state.trails} state={this.props.state}/>
             </div>
         )
     }
