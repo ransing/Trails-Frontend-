@@ -1,13 +1,32 @@
 import React, { Component } from "react";
 import Flippy, { FrontSide, BackSide } from 'react-flippy';
-import EventForm from './EventForm'
-
+import EventForm from './EventForm';
+import { Modal, ModalBody, ModalHeader, ModalFooter, Button } from 'reactstrap';
+import {VictoryBar, VictoryChart, VictoryAxis, VictoryTheme} from 'victory';
+import StarRatings from 'react-star-ratings';
+import Chart from 'chart.js';
+import {Bar, Line, Pie} from 'react-chartjs-2';
 export default class Trail extends Component {
 
     state = {
         addEventTrail: "",
         addEventTrailName: "",
-        token: localStorage.token
+        token: localStorage.token,
+        visible: true,
+        modalIsOpen: false,
+        favTrail: false 
+    }
+
+    toggleAlert = () => {
+        this.setState({
+          visible: !this.state.visible
+        })
+      }
+
+    toggleModal = () => {
+        this.setState({
+            modalIsOpen: !this.state.modalIsOpen
+        })
     }
 
     componentDidMount(){
@@ -25,6 +44,10 @@ export default class Trail extends Component {
             // console.log(r)
         })
 
+    }
+
+    componentDidUpdate(){
+       
     }
 
     addEvent = (props) => {
@@ -50,6 +73,12 @@ export default class Trail extends Component {
         alert("added to your favorite")
     }
 
+    changeState = () => {
+        this.setState({
+            favTrail: !this.state.favTrail
+        })
+    }
+
 
     addFavorite = (event) => {
         fetch("http://localhost:3000/user_trails", {
@@ -57,7 +86,7 @@ export default class Trail extends Component {
             headers: {
                 'Content-Type': 'Application/json',
                 'Accept': 'Application/json',
-                'Authorization': localStorage.token
+                'Authorization': `Bearer ${localStorage.token}`
             },
             body: JSON.stringify({
                 user_trail: {
@@ -67,10 +96,12 @@ export default class Trail extends Component {
         })
         .then(r => r.json())
         .then(r => {
+            
             this.alertFavorite()
-            console.log("user_trail")
+            this.changeState()
                 }
         )
+        
         
     }
 
@@ -104,11 +135,137 @@ export default class Trail extends Component {
         })
     }
 
-  render() {
+    removeFavorite = () => {
+        const userTrailId = this.props.trailItem.user_trails.map(userTrail => userTrail.id)
+        fetch(`http://localhost:3000/user_trails/${userTrailId[0]}`, {
+                'method': 'DELETE'
+        })
+        .then(r => {
+            this.changeState()
+            this.componentDidMount()
+        })
+        
+    }
+
+    
+    render() {
+        const trailData = this.props.trailItem
+        const data = [{stars: this.props.trailItem.stars,
+                        length:  this.props.trailItem.length,
+                        ascent: this.props.trailItem.ascent,
+                        descent: this.props.trailItem.descent, 
+                        high: this.props.trailItem.high,
+                        low: this.props.trailItem.low,
+                        y: 100
+                    }]
     // console.log(this.props.trailItem);
+
+        const vic = <VictoryChart
+                        theme={VictoryTheme.material}
+                        domainPadding={{ x: 10 }}
+                        >
+                            <VictoryBar horizontal
+                                style={{
+                                data: { fill: "#c43a31" }
+                                    }}
+                                height={20}
+                                data={data}
+                                x="length"
+                                y = "y"
+                            />
+                                <VictoryAxis
+                                    height={20}
+                                    domain={[-10, 10]}
+                                    label="experiment"
+                                    style={{
+                                        axisLabel: { padding: 30 }
+                                    }}
+                                    />
+                                <VictoryAxis dependentAxis
+                                    label="Length"
+                                    style={{
+                                        axisLabel: { padding: 40 }
+                                    }}
+                                    />
+                    </VictoryChart>
+
+    const chartData = {
+                        labels: ['Ascent', 'Descent', 'High', 'Low'],
+                        datasets:[
+                            {
+                                label:'',
+                                data:[
+                                     this.props.trailItem.ascent,
+                                    this.props.trailItem.descent, 
+                                    this.props.trailItem.high,
+                                    this.props.trailItem.low
+                                ],
+                                options: {
+                                    animation: {
+                                        duration: 2500,
+                                        easing: 'easeInExpo'
+                                        
+                                    }
+                                },
+                                backgroundColor:[
+                                'rgba(255, 99, 132, 0.6)',
+                                'rgba(54, 162, 235, 0.6)',
+                                'rgba(255, 206, 86, 0.6)',
+                                'rgba(75, 192, 192, 0.6)',
+                                'rgba(153, 102, 255, 0.6)',
+                                ]
+                            }
+                            ]
+                        }
+    
+    // Chart.defaults.global = {
+    //     animation: true,
+        // animationSteps: 160,
+        // duration: 5000
+    // }
+
+    const chartJs =  <Bar
+                            data={chartData}
+                            options={{
+                            title:{
+                                display:true,
+                                text:'elevation',
+                                fontSize:25
+                            },
+                            legend:{
+                                display:false,
+                                position: 'bottom'
+                            }
+                            }}
+                        />
+
+    //ternary for favorite button 
+    const favorite = this.props.trailItem.user_trails == ![]?
+                    <button onClick={this.addFavorite}> Add Favorite </button> :
+                    <button onClick={this.removeFavorite}> Remove Favorite </button>
+
+
     return (
 
     <React.Fragment>
+
+
+        <Modal isOpen={this.state.modalIsOpen}>
+            <ModalHeader onClick={this.toggleModal}> Header </ModalHeader>
+
+            <ModalBody>
+                <li>{this.props.trailItem.name}</li>
+                <li>Summary: {this.props.trailItem.summary} </li>
+                <li>Condition Status: {this.props.trailItem.condition} </li>
+                <li>Condition Details: {this.props.trailItem.conditionDetails} </li>
+                {vic}
+                {chartJs}
+            </ModalBody>
+
+            <ModalFooter> Add event </ModalFooter>
+
+        </Modal>
+
         <div>
            {this.state.addEventTrail !== "" ?
                     <EventForm trailId={this.props.trailItem.id} cancelForm={this.cancelForm} addEventTrailName={this.state.addEventTrailName} onNewEventSubmit={this.onNewEventSubmit} />
@@ -128,10 +285,22 @@ export default class Trail extends Component {
 
             <FrontSide
                     style={{
-                        backgroundColor: '#384944',
+                        backgroundColor: 'A4A378',
                     }}
                 >
+                            <StarRatings
+                                starDimension="10px"
+                                starSpacing="5px"
+                                rating={this.props.trailItem.stars}
+                                starRatedColor="red"
+                                changeRating={this.changeRating}
+                                numberOfStars={5}
+                                name='rating'
+                                />
+                            <div> Votes: {this.props.trailItem.star_votes} </div>
+                    
                     {this.props.trailItem.name}
+                    <button onClick={this.toggleModal}> Stats </button>
                     <img src={`${this.props.trailItem.imgSmall}`} style={{"max-width": "100%", "max-height": "100%"}}></img>
             </FrontSide>
 
@@ -139,7 +308,9 @@ export default class Trail extends Component {
                     style={{ backgroundColor: '#175852'}}>
                     <img src={`${this.props.trailItem.imgMedium}`} style={{"max-width": "100%", "max-height": "100%"}}></img>
                     <button onClick={this.addEvent}> Add Event </button>
-                    <button onClick={this.addFavorite}> Add Favorite </button>
+
+
+                    {favorite}
             </BackSide>
 
             </Flippy>
