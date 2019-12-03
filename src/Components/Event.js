@@ -1,13 +1,26 @@
 import React, { Component } from 'react';
+import { Modal, ModalBody, ModalHeader, ModalFooter, Button } from 'reactstrap';
 // import Button from semanitc
 import moment from 'moment';
 import EventComments from './EventComments'
 
 export default class Event extends Component {
 
+    state ={
+        weather: {},
+        hover: false,
+        modalIsOpen: false,
+    }
+
 
     alertCreate = () => {
         alert("added to your events")
+    }
+
+    toggleModal = () => {
+        this.setState({
+            modalIsOpen: !this.state.modalIsOpen
+        })
     }
 
     attendEvent = () => {
@@ -29,7 +42,7 @@ export default class Event extends Component {
         .then( r => {
             this.alertCreate()
 
-            console.log(r);
+            // console.log(r);
         })
     }
 
@@ -44,9 +57,35 @@ export default class Event extends Component {
                     //     null
     }
 
-
+    toggleHover = () => {
+        this.setState({
+            hover: !this.state.hover
+        })
+    }
     
 
+    componentDidMount = () => {
+        // this.setState({hover: !this.state.hover})
+        const weatherDate = moment(this.props.event.date).format('YYYY-MM-DD')
+        const t = "T"
+        const weatherDateT = weatherDate.concat(t)
+        const weatherTime = moment(this.props.event.time).format('hh:mm:ss')
+        const timeDarkSky = weatherDateT.concat(weatherTime)
+        // console.log(timeDarkSky)
+        fetch(`https://cors-anywhere.herokuapp.com/https://api.darksky.net/forecast/659e90d5171287938c0de563ba05ebc9/${this.props.event.trail.latitude},${this.props.event.trail.longitude},${timeDarkSky}`, {
+            
+        })
+        .then(r => r.json())
+        .then ( r => {
+            this.setState({
+                weatherSummary: r.hourly.summary
+            })
+          
+        })
+        
+        } 
+            
+    
     render() {
         // console.log(this.props.event.trail.imgMedium);
 
@@ -56,8 +95,31 @@ export default class Event extends Component {
                         null
 
 
+        const attendEvent = this.props.event.event_users_id_array.includes(this.props.userId) ?
+                            null :
+                        (<button onClick={this.attendEvent}> Attend this event </button>) 
+
+
         
         return (
+
+            <React.Fragment>
+
+
+            <Modal isOpen={this.state.modalIsOpen}>
+            <ModalHeader onClick={this.toggleModal}> Header </ModalHeader>
+
+            <ModalBody>
+                <li>{null}</li>
+                <li>Summary: {null} </li>
+                <li>Condition Status: {null} </li>
+                <li>Condition Details: {null} </li>
+               
+            </ModalBody>
+
+            <ModalFooter> Close </ModalFooter>
+
+        </Modal>
             
             <div>
 
@@ -77,15 +139,16 @@ export default class Event extends Component {
                         <h1 class="card__title">{null}</h1>
                         <p>{this.props.event.name}</p>
                         <br/>
-                        <p> Trail: {this.props.event.trail.name}</p>
+                        <a href={this.props.event.trail.url} target="_blank"> Trail: {this.props.event.trail.name}</a>
 
                         <br/>
-
-                        <button onClick={this.attendEvent}> Attend Event</button>
+                        {attendEvent}
+                        {/* <button onClick={this.attendEvent}> Attend Event</button> */}
 
                         <br/>
 
                         <p> Date {moment(this.props.event.date).format('dddd')} {this.props.event.date} </p>
+                        <p onMouseEnter={this.toggleHover} > {null} Weather {this.state.weatherSummary} </p>
 
                         <br/>
 
@@ -93,12 +156,12 @@ export default class Event extends Component {
                         
                         {delButton}
 
-                        <button onClick={() => this.props.deleteEvent(this.props.event.id)}> Delete Event </button>
+                        {/* <button onClick={() => this.props.deleteEvent(this.props.event.id)}> Delete Event </button> */}
                         <button onClick={this.editEvent}> Edit Event</button>
 
                         </div>
 
-                        <EventComments event={this.props.event} userId={this.props.userId}/>
+                        <EventComments event={this.props.event} userId={this.props.userId} userName={this.props.userName}/>
 
                     </div>
                     </div>
@@ -107,6 +170,7 @@ export default class Event extends Component {
 
 
             </div>
+            </React.Fragment>
             
         )
     }

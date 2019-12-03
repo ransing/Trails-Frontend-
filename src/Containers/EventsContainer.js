@@ -2,7 +2,9 @@ import React, { Component } from 'react'
 import Event from '../Components/Event';
 import { Modal, ModalBody, ModalHeader, ModalFooter, Button } from 'reactstrap';
 // import { Checkbox } from 'semantic-ui-react';
-import Checkbox from '../Components/Checkbox'
+import Checkbox from '../Components/Checkbox';
+import EventCalendar from '../Components/EventCalendar'
+
 
 const items = [
     'My events'
@@ -14,6 +16,7 @@ export default class EventsContainer extends Component {
         events: [],
         query: "",
         userId: "",
+        userName: "",
         myEvent: false 
     
     }
@@ -53,7 +56,8 @@ export default class EventsContainer extends Component {
                 // debugger 
               console.log("mounted", data)
               this.setState({
-                userId: data.id
+                userId: data.id,
+                userName: data.username
               })
               // debugger;
             //   const obj = {'user': data, 'position': position}
@@ -136,8 +140,10 @@ export default class EventsContainer extends Component {
             eventArr
 
         const event = finalArr.map(event => 
-                <Event event={event} deleteEvent={this.deleteEvent} userId={this.state.userId}/>
+                <Event event={event} deleteEvent={this.deleteEvent} userId={this.state.userId} userName={this.state.userName}/>
             )
+
+        
 
         return (
             <React.Fragment>
@@ -149,12 +155,15 @@ export default class EventsContainer extends Component {
                         onChange={this.handleSearch}
                         />
                 </div>
+                <a href="http://localhost:3001/events#bottom"> Go to Calendar</a>
                 <div>
                     {this.createCheckboxes()}
                 </div>
                 <div>
                   {event}
                 </div>
+
+                <EventCalendar events={this.state.events}/>
             </React.Fragment>
         )
     }

@@ -14,7 +14,7 @@ export default class Trail extends Component {
         token: localStorage.token,
         visible: true,
         modalIsOpen: false,
-        favTrail: false 
+        favTrail: false
     }
 
     toggleAlert = () => {
@@ -74,9 +74,9 @@ export default class Trail extends Component {
     }
 
     changeState = () => {
-        this.setState({
-            favTrail: !this.state.favTrail
-        })
+       this.setState({
+           favTrail: !this.state.favTrail
+       })
     }
 
 
@@ -99,6 +99,7 @@ export default class Trail extends Component {
             
             this.alertFavorite()
             this.changeState()
+            this.props.forceTrail(r)
                 }
         )
         
@@ -143,6 +144,7 @@ export default class Trail extends Component {
         .then(r => {
             this.changeState()
             this.componentDidMount()
+            this.props.forceTrail()
         })
         
     }
@@ -240,9 +242,9 @@ export default class Trail extends Component {
                         />
 
     //ternary for favorite button 
-    const favorite = this.props.trailItem.user_trails == ![]?
-                    <button onClick={this.addFavorite}> Add Favorite </button> :
-                    <button onClick={this.removeFavorite}> Remove Favorite </button>
+    const favorite = this.props.trailItem.user_trails.length > 0  ?
+                <button onClick={this.removeFavorite}> Remove Favorite </button>  :
+                    <button onClick={this.addFavorite}> Add Favorite </button> 
 
 
     return (

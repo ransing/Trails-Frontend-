@@ -16,16 +16,19 @@ export default class EventComments extends Component {
     }
 
     componentDidMount(){
-        console.log("mount");
+        // this.setState({
+        //     commentArray: this.state.commentArray
+        // })
     }
 
     componentDidUpdate(){
-        console.log("update");
+        // console.log("update");
+        // console.log(this.state.commentArray)
     }
 
     mount =()=>{
         this.componentDidUpdate()
-        console.log(this.props.event.name)
+        
     }
 
     handleSubmit = (e) => {
@@ -47,14 +50,29 @@ export default class EventComments extends Component {
                 event_comment: {
                     details: this.state.comment,
                     user_id: this.props.userId,
-                    event_id: this.props.event.id
+                    event_id: this.props.event.id,
                 }
             })
         })
         .then(r=>r.json())
         .then(newComment =>{
+            // console.log(newComment.user.username)
             this.setState({
-                commentArray: [...this.state.commentArray, newComment]
+                commentArray: [...this.state.commentArray, newComment],
+                comment: ""
+            })
+        })
+    }
+
+
+    deleteComment = (e) => {
+        fetch(`http://localhost:3000/event_comments/${e.target.dataset.id}`, {
+            'method': 'DELETE'
+        })
+        .then(r => {
+            this.forceUpdate()
+            this.setState({
+                commentArray: this.state.commentArray
             })
         })
     }
@@ -63,15 +81,20 @@ export default class EventComments extends Component {
     
 
     render() {
+
+        const eventComment = this.state.commentArray.map(e => (
+                            <React.Fragment>
+                            <li>{e.details}-{e.user_name} <button data-id={e.id} onClick={this.deleteComment}>X</button> </li>
+                            </React.Fragment>
+                        )
+                    )
+
         return (
             <div>
                 <React.Fragment>
                 <div>
                     Event Comments:
-                    {this.state.commentArray.map(e => {
-                       return  <li>{e.details}</li>
-                    }
-                        )}
+                    {eventComment}
                 </div>
 
                 <Form onSubmit={(e) => this.handleSubmit(e)}>
@@ -83,7 +106,7 @@ export default class EventComments extends Component {
                         onChange={this.handleChange}
                         required
                     />
-                    <Button id="submit-button" style={{"font-family":"Special Elite", "border-radius": "50px"}} type="submit">Submit Answer</Button>
+                    <Button id="submit-button" style={{"font-family":"Special Elite", "border-radius": "50px"}} type="submit">Submit Comment</Button>
                 </Form>
                 </React.Fragment>
 
