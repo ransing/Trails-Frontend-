@@ -33,13 +33,14 @@ export default class Login extends Component {
       })
     }).then(res => res.json())
     .then(data => {
+      console.log(data)
       if (data.errors) {
         this.setState({
           errors: data.errors
         })
       } else {
         this.props.history.push('/main')
-        console.log(this.state.username)
+        console.log(data)
         this.props.gotToken(data.token, data.user_id, this.state.username)
       }
     })

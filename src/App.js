@@ -10,6 +10,7 @@ import Events from './Components/Event';
 import TrailsContainer from './Containers/TrailsContainer';
 import EventsContainer from './Containers/EventsContainer';
 import Trail from './Components/Trail';
+import { ActionCableConsumer } from 'react-actioncable-provider';
 
 
 
@@ -24,7 +25,7 @@ class App extends React.Component {
 
   gotToken = (token, loggedInUserId, username) => {
     // debugger
-    // console.log("logged in", token)
+    console.log("logged in", token)
     localStorage.token = token
     localStorage.loggedInUserId = loggedInUserId
     localStorage.username = username

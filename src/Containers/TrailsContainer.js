@@ -17,7 +17,9 @@ export default class TrailsContainer extends Component {
     blueBlack: false,
     black: false,
     greenBlue: false,
-    dblack: false
+    dblack: false,
+    colorChosen: ['blue','green'],
+    // oneColorChose: 'blue'
   };
 
   toggleAlert = () => {
@@ -101,7 +103,6 @@ export default class TrailsContainer extends Component {
         return trail;
       }
     });
-
     this.setState({
       trailArr: newArray
     });
@@ -115,6 +116,21 @@ export default class TrailsContainer extends Component {
     //   });
   };
 
+  forceTrailDelete = (e) => {
+    console.log(e)
+    const tempArray = [...this.state.trailArr];
+    const newTempArray = tempArray.map(trail => {
+      if(trail.id === e){
+        return {...trail, user_trails: []}
+      } else {
+        return trail;
+      }
+    })
+    this.setState({
+      trailArr: newTempArray
+    })
+  }
+
   render() {
     // console.log(this.state.trailArr[0])
     const trailArrayFull = this.state.trailArr;
@@ -123,6 +139,21 @@ export default class TrailsContainer extends Component {
     console.log(this.state.trailArr);
     // const trailArray = this.state.trailArr[0]
     // console.log(trailArray);
+    
+
+    const blueTrail = this.state.blue ? trailArrayFull.filter(trail => {
+                        return trail.difficulty.includes("blue");
+                      }) : null;
+
+
+    const blueBlackTrail= this.state.blueBlack ? trailArrayFull.filter(trail => {
+                        return trail.difficulty.includes("blueBlack");
+                      }) : null;
+
+    // const colorTrailFilter = trailArr ? trailArr.filter 
+    
+
+
 
     const trailArr = trailArrayFull ? trailArrayFull.filter(trail => {
           return trail.name.includes(this.state.query.toLowerCase());
@@ -165,6 +196,7 @@ export default class TrailsContainer extends Component {
                     trailItem={trail}
                     state={this.props.state}
                     forceTrail={this.forceTrail}
+                    forceTrailDelete={this.forceTrailDelete}
                   />
                 );
               })

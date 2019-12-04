@@ -5,15 +5,19 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import {BrowserRouter} from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import {ActionCableProvider} from 'react-actioncable-provider';
+
 
 
 // import 'semantic-ui/dist/semantic.min.css';
 
 
 ReactDOM.render(
+        <ActionCableProvider url = 'ws://localhost:3000/cable'>
         <BrowserRouter> 
             <App />
-         </BrowserRouter>,
+         </BrowserRouter>
+         </ActionCableProvider>,
         
         document.getElementById('root'));
 

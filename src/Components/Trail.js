@@ -136,7 +136,7 @@ export default class Trail extends Component {
         })
     }
 
-    removeFavorite = () => {
+    removeFavorite = (e) => {
         const userTrailId = this.props.trailItem.user_trails.map(userTrail => userTrail.id)
         fetch(`http://localhost:3000/user_trails/${userTrailId[0]}`, {
                 'method': 'DELETE'
@@ -144,7 +144,7 @@ export default class Trail extends Component {
         .then(r => {
             this.changeState()
             this.componentDidMount()
-            this.props.forceTrail()
+            this.props.forceTrailDelete(e)
         })
         
     }
@@ -243,7 +243,7 @@ export default class Trail extends Component {
 
     //ternary for favorite button 
     const favorite = this.props.trailItem.user_trails.length > 0  ?
-                <button onClick={this.removeFavorite}> Remove Favorite </button>  :
+                <button onClick={() => this.removeFavorite(this.props.trailItem.id)}> Remove Favorite </button>  :
                     <button onClick={this.addFavorite}> Add Favorite </button> 
 
 

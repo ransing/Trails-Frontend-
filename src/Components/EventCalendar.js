@@ -30,7 +30,7 @@ export default class EventCalendar extends React.Component {
         .then(r => r.json())
         .then(eventData => {
             // debugger
-            const transformArray = eventData.map(({ name, date}) => ({ title: name, start: date }))
+            const transformArray = eventData.map(({ name, date, event_trail}) => ({ title: name, start: date, url: event_trail }))
 
 
         
@@ -51,12 +51,18 @@ export default class EventCalendar extends React.Component {
     //     calendarEvents: transformArray
     // })
   }
+
+  handleDateClick = (arg) => { // bind with an arrow function
+    alert(arg.dateStr)
+  }
+
+  
   
 
   render() {
       console.log(this.state.calendarEvents)
       console.log(this.state.events)
-      const transformArray = this.state.events.map(({ name, date}) => ({ details: name, start: date }))
+      const transformArray = this.state.events.map(({ name, date, event_trail }) => ({ details: name, start: date, url: event_trail }))
       console.log(transformArray)
 
     return (
@@ -81,6 +87,7 @@ export default class EventCalendar extends React.Component {
             weekends={this.state.calendarWeekends}
             events={this.state.calendarEvents}
             dateClick={this.handleDateClick}
+            target="_blank"
           />
         </div>
       </div>

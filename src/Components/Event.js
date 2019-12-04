@@ -2,7 +2,10 @@ import React, { Component } from 'react';
 import { Modal, ModalBody, ModalHeader, ModalFooter, Button } from 'reactstrap';
 // import Button from semanitc
 import moment from 'moment';
-import EventComments from './EventComments'
+import EventComments from './EventComments';
+// import {ActionCable} from 'react-actioncable-provider';
+import {ActionCableConsumer} from 'react-actioncable-provider';
+
 
 export default class Event extends Component {
 
@@ -72,7 +75,7 @@ export default class Event extends Component {
         const weatherTime = moment(this.props.event.time).format('hh:mm:ss')
         const timeDarkSky = weatherDateT.concat(weatherTime)
         // console.log(timeDarkSky)
-        fetch(`https://cors-anywhere.herokuapp.com/https://api.darksky.net/forecast/659e90d5171287938c0de563ba05ebc9/${this.props.event.trail.latitude},${this.props.event.trail.longitude},${timeDarkSky}`, {
+        fetch(`https://cors-anywhere.herokuapp.com/https://api.darksky.net/forecast/${process.env.REACT_APP_WEATHER_API_KEY}/${this.props.event.trail.latitude},${this.props.event.trail.longitude},${timeDarkSky}`, {
             
         })
         .then(r => r.json())
@@ -84,6 +87,14 @@ export default class Event extends Component {
         })
         
         } 
+    
+        // handleReceivedChat =() => {
+        //     this.setState(prevState => {
+        //         return{
+
+        //         }
+        //     })
+        // }
             
     
     render() {
@@ -91,7 +102,8 @@ export default class Event extends Component {
 
 
         const delButton = this.props.event.event_users_id_array.includes(this.props.userId) ?
-                        (<button onClick={() => this.props.deleteEvent(this.props.event.id)}> Delete this event </button>) :
+                        (<div><button onClick={() => this.props.deleteEvent(this.props.event.id)}> Delete this event </button>
+                        <button onClick={this.editEvent}> Edit Event</button>  </div>) :
                         null
 
 
@@ -104,6 +116,14 @@ export default class Event extends Component {
         return (
 
             <React.Fragment>
+            <ActionCableConsumer channel={{channel: 'FeedChannel'}} onReceived={() => {
+                console.log("received");
+            }}/>
+
+            {/* <ActionCableConsumer
+              
+              channel={ {channel: 'EventsChannel'} }
+              onReceived={handleReceivedChat}  /> */}
 
 
             <Modal isOpen={this.state.modalIsOpen}>
@@ -157,7 +177,7 @@ export default class Event extends Component {
                         {delButton}
 
                         {/* <button onClick={() => this.props.deleteEvent(this.props.event.id)}> Delete Event </button> */}
-                        <button onClick={this.editEvent}> Edit Event</button>
+                        
 
                         </div>
 
