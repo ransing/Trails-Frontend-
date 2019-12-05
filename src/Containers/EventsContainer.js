@@ -147,13 +147,13 @@ export default class EventsContainer extends Component {
 
         return (
             <React.Fragment >
-                <div style={{"margin-top":"28px"}}>
-                    <input 
+                <div style={{"margin-top":"68px"}}>
+                    {/* <input 
                         // name="query"
                         value={this.state.query}
                         placeholder="Search Event..."
                         onChange={this.handleSearch}
-                        />
+                        /> */}
                 </div>
                 <a href="http://localhost:3001/events#bottom"> Go to Calendar</a>
                 <div>
@@ -168,7 +168,7 @@ export default class EventsContainer extends Component {
                         onChange={this.handleSearch}
                         />
                 </div>
-                <div>
+                <div style={{"margin-top":"18px"}}>
                   {event}
                 </div>
 

@@ -75,6 +75,7 @@ label {
     color: white;
     padding: 0.5em 2em;
     border-radius: 5px;
+    opacity: 0.1;
 }
 
 a.pure-button-primary {
@@ -94,36 +95,53 @@ a.pure-button-primary {
     padding: 0.5em;
     text-align: center;
     box-shadow: 0 1px 1px rgba(0,0,0, 0.10);
+   
 }
 .home-menu {
-    background: #2d3e50;
+    /* background: #2d3e50; */
+    background-color: #0E4B3E;
+    background:rgba(51, 170, 51, .1)
+    
 }
 .pure-menu.pure-menu-fixed {
     /* Fixed menus normally have a border at the bottom. */
     border-bottom: none;
+    /* background-color: rgb(32, 77, 23); */
+    color: black;
+    /* opacity:0.2; */
     /* I need a higher z-index here because of the scroll-over effect. */
     z-index: 4;
 }
 
 .home-menu .pure-menu-heading {
-    color: white;
+    color: rgb(50, 53, 25);
     font-weight: 400;
     font-size: 120%;
     text-align: center;
+    /* background-color: #05080a !important; */
+}
+
+.pure-menu-link a{
+    color: black !important
+}
+
+.pure-menu-item {
+    color:black !important
 }
 
 .home-menu .pure-menu-selected a {
-    color: white;
+    color: rgb(73, 29, 29);
+    /* background-color: #34495e */
 }
 
 .home-menu a {
-    color: #6FBEF3;
+    color: black;
 }
 .home-menu li a:hover,
 .home-menu li a:focus {
     background: none;
     border: none;
-    color: #AECFE5;
+    color: black;
 }
 
 

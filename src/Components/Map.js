@@ -38,7 +38,7 @@ function Map(props) {
       // width="120" 
       // height="120"
       defaultZoom={7}
-      defaultCenter={{ lat: 38, lng: -104 }}
+      defaultCenter={{ lat: 39, lng: -106 }}
     >
       
       {trails.map(trail => (
