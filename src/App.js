@@ -11,6 +11,7 @@ import TrailsContainer from './Containers/TrailsContainer';
 import EventsContainer from './Containers/EventsContainer';
 import Trail from './Components/Trail';
 import { ActionCableConsumer } from 'react-actioncable-provider';
+import './Styles/AppNav.css'
 
 
 
@@ -69,10 +70,11 @@ class App extends React.Component {
   render () { 
 
   return (
-    <div className="App">
+    <div className="App" style={{"margin-top":"28px", "margin-bottom":"18px"}}>
 
       {/* // NavBar begins */}  
-      <nav class="navbar" style={{'margin-bottom': '24px'}}>
+      {/* <nav class="navbar" style={{'margin-bottom': '24px'}}>
+      <div className="home-menu pure-menu pure-menu-horizontal pure-menu-fixed" >
                 <ul class="main-nav" id="js-menu">
                   <li>
                       <a  href="#" class="nav-links">
@@ -97,10 +99,32 @@ class App extends React.Component {
                   <li>
                     <a href="/main" class="nav-links"> All Trails</a>
                   </li>
+                
 
                   
                 </ul>
-              </nav>
+                </div> */}
+
+                  <div class="header" style={{"margin-bottom":"28px"}}>
+                    <div class="home-menu pure-menu pure-menu-horizontal pure-menu-fixed">
+                        
+                        <a  href="#" >
+                                {this.state.username ? 
+                                <a class="pure-menu-heading" href="" > Welcome  {this.state.username} </a>
+                                // <text>Welcome {this.state.username} </text> 
+                                : null}
+                        </a>
+
+                        <ul class="pure-menu-list">
+                            <li class="pure-menu-item pure-menu-selected"><a href="/main" class="pure-menu-link">MAP</a></li>
+                            <li  onClick={this.goBack} class="pure-menu-item"><a href="#" class="pure-menu-link">Go Back </a></li>
+                            <li  onClick={this.logOutClicked} class="pure-menu-item"><a href="#" class="pure-menu-link">Log out  </a></li>
+                            <li class="pure-menu-item"><a href="/events" class="pure-menu-link">All Events </a></li>
+                            <li class="pure-menu-item"><a href="/trails" class="pure-menu-link">All Trails </a></li>
+                        </ul>
+                    </div>
+                </div>
+              {/* </nav> */}
           {/* // NavBar ends  */}
 
       <Switch>

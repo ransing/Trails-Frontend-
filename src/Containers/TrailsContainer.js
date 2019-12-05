@@ -10,7 +10,7 @@ export default class TrailsContainer extends Component {
     trailEvent: "",
     query: "",
     trailArr: [],
-    trailAr: this.props.trailArray[0],
+    // trailAr: this.props.trailArray[0],
     visible: true,
     modalIsOpen: false,
     blue: false,
@@ -134,9 +134,9 @@ export default class TrailsContainer extends Component {
   render() {
     // console.log(this.state.trailArr[0])
     const trailArrayFull = this.state.trailArr;
-    console.log(this.props.trailArray[0]);
-    console.log(trailArrayFull);
-    console.log(this.state.trailArr);
+    // console.log(this.props.trailArray[0]);
+    // console.log(trailArrayFull);
+    // console.log(this.state.trailArr);
     // const trailArray = this.state.trailArr[0]
     // console.log(trailArray);
 

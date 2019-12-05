@@ -28,7 +28,11 @@ function Map(props) {
 
   return (
 
-    <div style={{ "height": "20", "width": "20" }}>
+    // <div style={{ "height": "120", "width": "120" }}>
+    //   <div>
+    //     hgig 
+    //     </div>
+
     <GoogleMap
       // style={{ height: '100vh', width: '100%' }}
       // width="120" 
@@ -70,7 +74,7 @@ function Map(props) {
       )}
 
     </GoogleMap>
-    </div>
+    // </div>
   );
 }
 
