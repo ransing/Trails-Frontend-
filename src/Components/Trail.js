@@ -5,12 +5,21 @@ import { Modal, ModalBody, ModalHeader, ModalFooter} from 'reactstrap';
 import {VictoryBar, VictoryChart, VictoryAxis, VictoryTheme} from 'victory';
 import StarRatings from 'react-star-ratings';
 import Chart from 'chart.js';
+import { positions, Provider } from "react-alert";
+import AlertTemplate from "react-alert-template-basic";
+import { useAlert, withAlert } from "react-alert";
 import {Bar, Line, Pie} from 'react-chartjs-2';
 import {Button} from 'antd';
 import '../Styles/Trail.css';
 // import {Button} from 'antd/es/button';
 // import 'antd/dist/antd.css';
-export default class Trail extends Component {
+
+const options = {
+    timeout: 3000,
+    position: positions.BOTTOM_CENTER
+  };
+
+  class Trail extends Component {
 
     state = {
         addEventTrail: "",
@@ -74,7 +83,10 @@ export default class Trail extends Component {
     }
 
     alertFavorite = () => {
-        alert.show("added to your favorite")
+        // const alert = this.props.alert
+        // alert.show("added to your favorite")
+        // this.props.justForAlert()
+        alert("Added to Favorites")
     }
 
     changeState = () => {
@@ -146,11 +158,17 @@ export default class Trail extends Component {
                 'method': 'DELETE'
         })
         .then(r => {
+            debugger
+            this.alertRemoveFavorite()
             this.changeState()
             this.componentDidMount()
             this.props.forceTrailDelete(e)
         })
         
+    }
+
+    alertRemoveFavorite = () => {
+        alert("removed Favorite")
     }
 
     
@@ -291,7 +309,7 @@ export default class Trail extends Component {
 
             <FrontSide
                     style={{
-                        backgroundColor: 'A4A378',
+                        backgroundColor: '9EBB98',
                     }}
                 >
                             <StarRatings
@@ -328,3 +346,6 @@ export default class Trail extends Component {
     )
   }
 }
+
+
+export default Trail;

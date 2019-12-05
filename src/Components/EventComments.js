@@ -82,6 +82,7 @@ class EventComments extends Component {
       };
     });
     // alert("new")
+    console.log(this.props.alert);
     const alert = this.props.alert;
     alert.show("new comment received");
 

@@ -11,6 +11,7 @@ import '../Styles/ZoomStyle.css';
 
 import { positions, Provider } from "react-alert";
 import AlertTemplate from "react-alert-template-basic";
+import {VictoryChart, VictoryArea, VictoryTheme, VictoryLabel, VictoryLine} from 'victory';
 
 const options = {
     timeout: 5000,
@@ -47,6 +48,7 @@ export default class Event extends Component {
     }
 
     toggleModal = () => {
+        
         this.setState({
             modalIsOpen: !this.state.modalIsOpen
         })
@@ -86,11 +88,11 @@ export default class Event extends Component {
                     //     null
     }
 
-    toggleHover = () => {
-        this.setState({
-            hover: !this.state.hover
-        })
-    }
+    // toggleHover = () => {
+    //     this.setState({
+    //         hover: !this.state.hover
+    //     })
+    // }
     
 
     componentDidMount = () => {
@@ -142,6 +144,16 @@ export default class Event extends Component {
                         (<button onClick={this.attendEvent}> Attend this event </button>) 
 
 
+        // const transformArray = eventData.map(({ name, date, event_trail}) => ({ title: name,
+        //                                                                         start: date,                 url: event_trail }))
+
+        const tempArray =  this.state.weather.hourly.data.map((
+            {time,temperature}) => ({x:moment.unix(parseInt(time)).format('hh a'), y:temperature}
+        ))                     
+        
+        console.log(tempArray)
+
+
         
         return (
 
@@ -156,7 +168,7 @@ export default class Event extends Component {
               channel={ {channel: 'EventsChannel'} }
               onReceived={handleReceivedChat}  /> */}
 
-            {/* modal weather  begins */}
+            {/**  modal weather  begins */}
 
             <Modal isOpen={this.state.modalIsOpen}>
             <ModalHeader onClick={this.toggleModal}> Header </ModalHeader>
@@ -166,6 +178,25 @@ export default class Event extends Component {
                 <li>Summary: {null} </li>
                 <li>Condition Status: {null} </li>
                 <li>Condition Details: {null} </li>
+                    <VictoryChart
+                        theme={VictoryTheme.material}
+                        >
+                        <VictoryArea
+                            style={{ data: { fill: "#c43a31" } }}
+                            data={tempArray}
+                        />
+                        {/* <VictoryLabel x={25} y={55} style={styles.labelOne}
+                                    text={"Economy \n % change on a year earlier"}
+                                /> */}
+                        <VictoryChart domain={[0, 10]}>
+                            <VictoryLabel text="← 12AM -12PM- 12AM →" x={60} y={339} />
+                                {/* <VictoryLine
+                                    style={{ data: { stroke: "blue", strokeWidth: 5 } }}
+                                    y={(d) => d.x}
+                            /> */}
+                            <VictoryLabel text="Temperature in ° C" datum={{ x: 3, y: 27 }} textAnchor="middle"/>
+                        </VictoryChart>
+                    </VictoryChart>
                
             </ModalBody>
 
@@ -208,7 +239,7 @@ export default class Event extends Component {
 
                         <p> Date {moment(this.props.event.date).format('dddd')} {this.props.event.date} </p>
 
-                        <a href={this.toggleModal}> Weather Modal</a>
+                        <button onClick={this.toggleModal}> Weather Modal</button>
 
                         <p onMouseEnter={this.toggleHover} > {null} Weather {this.state.weatherSummary} </p>
 

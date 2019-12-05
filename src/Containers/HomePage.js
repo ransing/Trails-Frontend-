@@ -3,10 +3,18 @@ import Login from '../Components/Login';
 import NavBar from '../Components/NavBar';
 import TrailsContainer from './TrailsContainer';
 import EventsContainer from './EventsContainer';
-import {WrappedMap} from '../Components/Map'
+import {WrappedMap} from '../Components/Map';
+import { positions, Provider } from "react-alert";
+import AlertTemplate from "react-alert-template-basic";
 
-console.log(process.env.REACT_APP_GOOGLE_API_KEY)
-console.log(process.env.REACT_APP_WEATHER_API_KEY)
+
+const options = {
+    timeout: 5000,
+    position: positions.BOTTOM_CENTER
+  };
+
+// console.log(process.env.REACT_APP_GOOGLE_API_KEY)
+// console.log(process.env.REACT_APP_WEATHER_API_KEY)
 
 export default class HomePage extends Component {
 
@@ -47,8 +55,11 @@ export default class HomePage extends Component {
 
 
 
+        <Provider template={AlertTemplate} {...options}>
 
                 <TrailsContainer trailArray={this.state.trails} state={this.props.state}/>
+
+        </Provider>
             </div>
         )
     }

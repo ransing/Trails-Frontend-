@@ -2,10 +2,18 @@ import React, { Component } from "react";
 import Trail from "../Components/Trail";
 import { Modal, ModalBody, ModalHeader, ModalFooter, Button } from "reactstrap";
 import Checkbox from "../Components/Checkbox";
+import { useAlert, withAlert } from "react-alert";
+import { positions, Provider } from "react-alert";
+import AlertTemplate from "react-alert-template-basic";
+
 
 const items = ["blue", "blueBlack", "black", "greenBlue", "dblack"];
+const options = {
+  timeout: 3000,
+  position: positions.BOTTOM_CENTER
+};
 
-export default class TrailsContainer extends Component {
+class TrailsContainer extends Component {
   state = {
     trailEvent: "",
     query: "",
@@ -49,6 +57,13 @@ export default class TrailsContainer extends Component {
         });
       });
   };
+
+  justForAlert = () => {
+    console.log(this.props.alert)
+    // const alert = this.props.alert;
+    // alert.show("new favorite");
+
+  }
 
   //! checkbox code
 
@@ -227,6 +242,7 @@ export default class TrailsContainer extends Component {
                     state={this.props.state}
                     forceTrail={this.forceTrail}
                     forceTrailDelete={this.forceTrailDelete}
+                    justForAlert={this.justForAlert}
                   />
                 );
               })
@@ -236,3 +252,5 @@ export default class TrailsContainer extends Component {
     );
   }
 }
+
+export default TrailsContainer;
