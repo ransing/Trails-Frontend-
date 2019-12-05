@@ -18,7 +18,7 @@ export default class TrailsContainer extends Component {
     black: false,
     greenBlue: false,
     dblack: false,
-    colorChosen: ['blue','green'],
+    colorChosen: ["blue", "green"]
     // oneColorChose: 'blue'
   };
 
@@ -116,20 +116,20 @@ export default class TrailsContainer extends Component {
     //   });
   };
 
-  forceTrailDelete = (e) => {
-    console.log(e)
+  forceTrailDelete = e => {
+    console.log(e);
     const tempArray = [...this.state.trailArr];
     const newTempArray = tempArray.map(trail => {
-      if(trail.id === e){
-        return {...trail, user_trails: []}
+      if (trail.id === e) {
+        return { ...trail, user_trails: [] };
       } else {
         return trail;
       }
-    })
+    });
     this.setState({
       trailArr: newTempArray
-    })
-  }
+    });
+  };
 
   render() {
     // console.log(this.state.trailArr[0])
@@ -139,25 +139,53 @@ export default class TrailsContainer extends Component {
     console.log(this.state.trailArr);
     // const trailArray = this.state.trailArr[0]
     // console.log(trailArray);
-    
 
-    const blueTrail = this.state.blue ? trailArrayFull.filter(trail => {
-                        return trail.difficulty.includes("blue");
-                      }) : null;
+    const blue = this.state.blue
+      ? trailArrayFull.filter(trail => {
+          return trail.difficulty === "blue";
+        })
+      : [];
 
+    const blueBlack = this.state.blueBlack
+      ? trailArrayFull.filter(trail => {
+          return trail.difficulty === "blueBlack";
+        })
+      : [];
+    const black = this.state.black
+      ? trailArrayFull.filter(trail => {
+          return trail.difficulty === "black";
+        })
+      : [];
+    const greenBlue = this.state.greenBlue
+      ? trailArrayFull.filter(trail => {
+          return trail.difficulty === "greenBlue";
+        })
+      : [];
+    const dblack = this.state.dblack
+      ? trailArrayFull.filter(trail => {
+          return trail.difficulty === "dblack";
+        })
+      : [];
 
-    const blueBlackTrail= this.state.blueBlack ? trailArrayFull.filter(trail => {
-                        return trail.difficulty.includes("blueBlack");
-                      }) : null;
+    // // const colorTrailFilter = trailArr ? trailArr.filter
 
-    // const colorTrailFilter = trailArr ? trailArr.filter 
-    
+    const sumArr =
+      this.state.blue ||
+      this.state.blueBlack ||
+      this.state.black ||
+      this.state.greenBlue ||
+      this.state.dblack
+        ? [...blue, ...blueBlack, ...black, ...greenBlue, ...dblack]
+        : trailArrayFull;
 
+    const trailArr = sumArr
+      ? sumArr.filter(trail => {
+          return trail.name
+            .toLowerCase()
+            .includes(this.state.query.toLowerCase());
+        })
+      : null;
 
-
-    const trailArr = trailArrayFull ? trailArrayFull.filter(trail => {
-          return trail.name.includes(this.state.query.toLowerCase());
-        }) : null;
     // console.log(trailArray[0]);
     // const trailItem = trailArray.map(trail => <Trail trailItem={trail} />);
 
@@ -172,7 +200,9 @@ export default class TrailsContainer extends Component {
           />
         </div>
 
-        <div>{this.createCheckboxes()}</div>
+        <div style={{ display: "flex", "flex-direction": "row" }}>
+          Sort by Difficulty: {this.createCheckboxes()}
+        </div>
 
         {/* <Checkbox/> */}
 

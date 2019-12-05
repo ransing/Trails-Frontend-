@@ -5,14 +5,40 @@ import moment from 'moment';
 import EventComments from './EventComments';
 // import {ActionCable} from 'react-actioncable-provider';
 import {ActionCableConsumer} from 'react-actioncable-provider';
+import posed from "react-pose";
+import ZoomImg from './ZoomImg';
+import '../Styles/ZoomStyle.css';
+
+import { positions, Provider } from "react-alert";
+import AlertTemplate from "react-alert-template-basic";
+
+const options = {
+    timeout: 5000,
+    position: positions.BOTTOM_CENTER
+  };
 
 
 export default class Event extends Component {
 
     state ={
-        weather: {},
+        weather: {
+            hourly: {
+                data: []
+            }
+        },
         hover: false,
         modalIsOpen: false,
+        isZoomed: false 
+
+    }
+
+    //animation transition
+    zoomIn() {
+        this.setState({ isZoomed: true });
+      }
+      
+    zoomOut() {
+        this.setState({ isZoomed: false });
     }
 
 
@@ -33,7 +59,7 @@ export default class Event extends Component {
             headers: {
                 'Content-Type': 'Application/json',
                 'Accept': 'Application/json',
-                'Authorization': localStorage.token
+                'Authorization': `Bearer ${localStorage.token}`
             },
             body: JSON.stringify({
                 user_events: {
@@ -81,7 +107,9 @@ export default class Event extends Component {
         .then(r => r.json())
         .then ( r => {
             this.setState({
-                weatherSummary: r.hourly.summary
+                weatherSummary: r.hourly.summary,
+                icon: r.hourly.icon,
+                weather: r
             })
           
         })
@@ -99,6 +127,8 @@ export default class Event extends Component {
     
     render() {
         // console.log(this.props.event.trail.imgMedium);
+        console.log(this.state.weather.hourly.data
+            )
 
 
         const delButton = this.props.event.event_users_id_array.includes(this.props.userId) ?
@@ -116,21 +146,23 @@ export default class Event extends Component {
         return (
 
             <React.Fragment>
-            <ActionCableConsumer channel={{channel: 'FeedChannel'}} onReceived={() => {
+                <Provider template={AlertTemplate} {...options}>
+            {/* <ActionCableConsumer channel={{channel: 'FeedChannel'}} onReceived={() => {
                 console.log("received");
-            }}/>
+            }}/> */}
 
             {/* <ActionCableConsumer
               
               channel={ {channel: 'EventsChannel'} }
               onReceived={handleReceivedChat}  /> */}
 
+            {/* modal weather  begins */}
 
             <Modal isOpen={this.state.modalIsOpen}>
             <ModalHeader onClick={this.toggleModal}> Header </ModalHeader>
 
             <ModalBody>
-                <li>{null}</li>
+                <a href={this.toggleModal}>{null}</a>
                 <li>Summary: {null} </li>
                 <li>Condition Status: {null} </li>
                 <li>Condition Details: {null} </li>
@@ -139,14 +171,21 @@ export default class Event extends Component {
 
             <ModalFooter> Close </ModalFooter>
 
-        </Modal>
+            </Modal>
             
+            {/* modal weather  ends   */}
+
             <div>
 
                     <div class="container">
                     <div class="card">
                         <div class="card__image-container">
-                        <img class="card__image" src={this.props.event.trail.imgMedium}  alt=""/>
+                        {/* <img class="card__image" src={this.props.event.trail.imgMedium}  alt=""/> */}
+                        <ZoomImg 
+                            imageWidth={330}
+                            imageHeight={250}
+                            src={this.props.event.trail.imgMedium}
+                        />
                         </div>
                         
                         {/* <svg class="card__svg" viewBox="0 0 800 500">
@@ -168,6 +207,9 @@ export default class Event extends Component {
                         <br/>
 
                         <p> Date {moment(this.props.event.date).format('dddd')} {this.props.event.date} </p>
+
+                        <a href={this.toggleModal}> Weather Modal</a>
+
                         <p onMouseEnter={this.toggleHover} > {null} Weather {this.state.weatherSummary} </p>
 
                         <br/>
@@ -190,6 +232,7 @@ export default class Event extends Component {
 
 
             </div>
+            </Provider>
             </React.Fragment>
             
         )

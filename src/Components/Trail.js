@@ -1,11 +1,15 @@
 import React, { Component } from "react";
 import Flippy, { FrontSide, BackSide } from 'react-flippy';
 import EventForm from './EventForm';
-import { Modal, ModalBody, ModalHeader, ModalFooter, Button } from 'reactstrap';
+import { Modal, ModalBody, ModalHeader, ModalFooter} from 'reactstrap';
 import {VictoryBar, VictoryChart, VictoryAxis, VictoryTheme} from 'victory';
 import StarRatings from 'react-star-ratings';
 import Chart from 'chart.js';
 import {Bar, Line, Pie} from 'react-chartjs-2';
+import {Button} from 'antd';
+import '../Styles/Trail.css';
+// import {Button} from 'antd/es/button';
+// import 'antd/dist/antd.css';
 export default class Trail extends Component {
 
     state = {
@@ -70,7 +74,7 @@ export default class Trail extends Component {
     }
 
     alertFavorite = () => {
-        alert("added to your favorite")
+        alert.show("added to your favorite")
     }
 
     changeState = () => {
@@ -243,8 +247,8 @@ export default class Trail extends Component {
 
     //ternary for favorite button 
     const favorite = this.props.trailItem.user_trails.length > 0  ?
-                <button onClick={() => this.removeFavorite(this.props.trailItem.id)}> Remove Favorite </button>  :
-                    <button onClick={this.addFavorite}> Add Favorite </button> 
+                <button type="primary" className="button-small button-error pure-button pure-button-primary"  onClick={() => this.removeFavorite(this.props.trailItem.id)}> Remove Favorite </button>  :
+                    <button type="primary" className="button-small button-error pure-button pure-button-primary" onClick={this.addFavorite}> Add Favorite </button> 
 
 
     return (
@@ -282,7 +286,7 @@ export default class Trail extends Component {
                     ref={(r) => this.flippy = r} // to use toggle method like this.flippy.toggle()
                     // if you pass isFlipped prop component will be controlled component.
                     // and other props, which will go to div
-                    style={{ width: '200px', height: '200px' }} /// these are optional style, it is not necessary
+                    style={{ width: '250px', height: '250px', "margin-bottom":"16px" }} /// these are optional style, it is not necessary
                 >
 
             <FrontSide
@@ -300,21 +304,24 @@ export default class Trail extends Component {
                                 name='rating'
                                 />
                             <div> Votes: {this.props.trailItem.star_votes} </div>
-                    
+                    <div  style={{"font-size":"17px"}}>
                     {this.props.trailItem.name}
-                    <button onClick={this.toggleModal}> Stats </button>
-                    <img src={`${this.props.trailItem.imgSmall}`} style={{"max-width": "100%", "max-height": "100%"}}></img>
+                    </div>
+                    <button type="primary" className ="pure-button-primary pure-button button-stats button-small" onClick={this.toggleModal}> Stats </button>
+                    <img src={`${this.props.trailItem.imgSmall}`} style={{"max-width": "100%", "max-height": "90%"}}></img>
             </FrontSide>
+
+            <div className="App">
 
             <BackSide
                     style={{ backgroundColor: '#175852'}}>
                     <img src={`${this.props.trailItem.imgMedium}`} style={{"max-width": "100%", "max-height": "100%"}}></img>
-                    <button onClick={this.addEvent}> Add Event </button>
+                    <button type="primary" className="button-small pure-button pure-button-primary" onClick={this.addEvent}> Add Event </button>
 
 
                     {favorite}
             </BackSide>
-
+            </div>
             </Flippy>
 
     </React.Fragment>   

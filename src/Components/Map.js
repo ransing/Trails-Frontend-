@@ -7,7 +7,7 @@ import {
   InfoWindow
 } from "react-google-maps";
 
-function Map() {
+function Map(props) {
   const [trails, setTrails] = useState([]);
     const [selectedTrail, setSelectedTrail] = useState(null)
 
@@ -21,13 +21,25 @@ function Map() {
     console.log(trails);
   }, []);
 
+  const mapOnClick = (trail) => {
+    console.log(trail)
+    setSelectedTrail(trail)
+  }
+
   return (
+
+    <div style={{ "height": "20", "width": "20" }}>
     <GoogleMap
-      defaultZoom={6}
+      // style={{ height: '100vh', width: '100%' }}
+      // width="120" 
+      // height="120"
+      defaultZoom={7}
       defaultCenter={{ lat: 38, lng: -104 }}
     >
+      
       {trails.map(trail => (
           <Marker
+            onClick ={() => mapOnClick(trail)}
             key={trail.id}
             position={{
               lat: parseFloat(trail.latitude),
@@ -50,7 +62,7 @@ function Map() {
             <h2>{selectedTrail.name}</h2>
             {/* <p>{selectedTrail.address}</p> */}
             <p>{selectedTrail.category}</p>
-            <button onClick={this.props.handleClick}>See Trails</button>
+            <button onClick={()=> props.handleClick(selectedTrail)}>See Trails</button>
 
           </div>
 
@@ -58,6 +70,7 @@ function Map() {
       )}
 
     </GoogleMap>
+    </div>
   );
 }
 

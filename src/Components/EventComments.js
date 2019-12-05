@@ -1,12 +1,22 @@
 import React, { Component } from "react";
 import { Button, Form } from "semantic-ui-react";
-import {ActionCableConsumer} from 'react-actioncable-provider';
+import { ActionCableConsumer } from "react-actioncable-provider";
+import { positions, Provider } from "react-alert";
+import AlertTemplate from "react-alert-template-basic";
+import { useAlert, withAlert } from "react-alert";
 
-export default class EventComments extends Component {
+const options = {
+  timeout: 3000,
+  position: positions.BOTTOM_CENTER
+};
+
+class EventComments extends Component {
   state = {
     comment: "",
     commentArray: this.props.event.event_comments
   };
+
+  //   const alert = useAlert();
 
   handleChange = e => {
     this.setState({
@@ -53,7 +63,7 @@ export default class EventComments extends Component {
           event_id: this.props.event.id
         }
       })
-    })
+    });
     //   .then(r => r.json())
     //   .then(newComment => {
     //     // console.log(newComment.user.username)
@@ -64,22 +74,23 @@ export default class EventComments extends Component {
     //   });
   };
 
-  addEventComment =(eventComment) => {
+  addEventComment = eventComment => {
     this.setState(prevState => {
-        return{
-        commentArray: [...prevState.commentArray, eventComment]
-        }
-    })
-        
-        
-        
-        // {
-        //       commentArray: [...this.state.commentArray, eventComment],
-        //       comment: ""
-        //     })
-        //     this.forceUpdate()
+      return {
+        commentArray: [...prevState.commentArray, eventComment],
+        comment: ""
+      };
+    });
+    // alert("new")
+    const alert = this.props.alert;
+    alert.show("new comment received");
 
-  }
+    // {
+    //       commentArray: [...this.state.commentArray, eventComment],
+    //       comment: ""
+    //     })
+    //     this.forceUpdate()
+  };
 
   deleteComment = e => {
     // console.log(e.target.dataset.id);
@@ -116,14 +127,18 @@ export default class EventComments extends Component {
     return (
       <div>
         <React.Fragment>
+          {/* <Provider template={AlertTemplate} {...options}> */}
           <div>
             Event Comments:
             {eventComment}
           </div>
 
-          <ActionCableConsumer channel={{channel: 'EventCommentsChannel'}} onReceived = {(eventComment) => {
+          <ActionCableConsumer
+            channel={{ channel: "EventCommentsChannel" }}
+            onReceived={eventComment => {
               this.addEventComment(eventComment);
-          }}/>
+            }}
+          />
 
           <Form onSubmit={e => this.handleSubmit(e)}>
             <Form.Input
@@ -145,8 +160,11 @@ export default class EventComments extends Component {
               Submit Comment
             </Button>
           </Form>
+          {/* </Provider> */}
         </React.Fragment>
       </div>
     );
   }
 }
+
+export default withAlert()(EventComments);
