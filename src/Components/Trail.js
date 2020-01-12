@@ -147,15 +147,15 @@ const options = {
                 }
             })
         })
-        .then(r => r.json())
-        .then( r => 
-            {
-            console.log(r)
-        }
+        // .then(r => r.json())
+        // .then( r => 
+        //     {
+        //     console.log(r)
+        // }
             // this.alertCreate()
             // {this.addEventTrailToNull()}
             
-            )
+            // )
             // debugger
         // ! below is addEventTrailToNull
         // .then(r => {
@@ -163,6 +163,10 @@ const options = {
         //         addEventTrail: ""
         //     })
         // })
+        this.alertCreate();
+        this.setState({
+            addEventTrail: ""
+        })
         
     }
 
