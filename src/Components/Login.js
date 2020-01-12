@@ -23,7 +23,7 @@ export default class Login extends Component {
     event.preventDefault()
     console.log("clicked login")
     // make a fetch
-    fetch("http://localhost:3000/login", {
+    fetch("http://trailsbackend1.herokuapp.com/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -52,7 +52,7 @@ export default class Login extends Component {
     event.preventDefault()
     console.log("clicked submit ")
     // make a fetch
-    fetch("http://localhost:3000/signup", {
+    fetch("http://trailsbackend1.herokuapp.com/signup", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"

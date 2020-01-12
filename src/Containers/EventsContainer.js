@@ -29,7 +29,7 @@ export default class EventsContainer extends Component {
 
     deleteEvent = (e) =>{
         console.log(e);
-        fetch(`http://localhost:3000/events/${e}`, {
+        fetch(`http://trailsbackend1.herokuapp.com/${e}`, {
             'method': 'DELETE'
         })
         .then(r => {
@@ -46,7 +46,7 @@ export default class EventsContainer extends Component {
         const sendToken = localStorage.token
         console.log("mount")
         if(sendToken){
-            fetch("http://localhost:3000/profile",{
+            fetch("http://trailsbackend1.herokuapp.com/profile",{
                 headers: {
                     'Authorization': `Bearer ${sendToken}`
                 }
@@ -67,7 +67,7 @@ export default class EventsContainer extends Component {
         }
 
 
-        fetch('http://localhost:3000/events')
+        fetch('http://trailsbackend1.herokuapp.com/events')
         .then(r => r.json())
         .then(eventData => {
             // debugger
@@ -155,7 +155,7 @@ export default class EventsContainer extends Component {
                         onChange={this.handleSearch}
                         /> */}
                 </div>
-                <a href="http://localhost:3001/events#bottom"> Go to Calendar</a>
+                <a href="http://trailsbackend1.herokuapp.com/events#bottom"> Go to Calendar</a>
                 <div>
                     {this.createCheckboxes()}
                 </div>

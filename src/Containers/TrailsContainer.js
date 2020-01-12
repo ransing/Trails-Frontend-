@@ -50,7 +50,7 @@ class TrailsContainer extends Component {
   };
 
   componentDidMount = () => {
-    fetch("http://localhost:3000/trails")
+    fetch("http://trailsbackend1.herokuapp.com/trails")
       .then(r => r.json())
       .then(trailData => {
         this.setState({

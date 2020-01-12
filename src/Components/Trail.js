@@ -44,7 +44,7 @@ const options = {
 
     componentDidMount(){
         // console.log(this.props.state)
-        fetch('http://localhost:3000/user_trails',{
+        fetch('http://trailsbackend1.herokuapp.com/user_trails',{
             method: 'GET',
             headers: {
                 'Content-Type': 'Application/json',
@@ -97,7 +97,7 @@ const options = {
 
 
     addFavorite = (event) => {
-        fetch("http://localhost:3000/user_trails", {
+        fetch("http://trailsbackend1.herokuapp.com/user_trails", {
             method: 'POST',
             headers: {
                 'Content-Type': 'Application/json',
@@ -122,13 +122,20 @@ const options = {
         
     }
 
+    addEventTrailToNull = () => {
+        this.setState({
+                    addEventTrail: ""
+                })
+        // this.alertCreate()
+    }
+
 
     onNewEventSubmit = (event) => {
-        // e.preventDefault()
+        // event.preventDefault()
         console.log(event)
-        fetch("http://localhost:3000/events", {
+        fetch("http://trailsbackend1.herokuapp.com/events", {
             method: 'POST',
-            headers: {
+            headers:{
                 'Content-Type': 'Application/json',
                 'Accept': 'Application/json',
                 "Authorization": `Bearer ${localStorage.token}`
@@ -141,20 +148,27 @@ const options = {
             })
         })
         .then(r => r.json())
-        .then( r => {
+        .then( r => 
+            {
             console.log(r)
-            // debugger
         }
-        ,this.alertCreate()
-        )
-        this.setState({
-            addEventTrail: ""
-        })
+            // this.alertCreate()
+            // {this.addEventTrailToNull()}
+            
+            )
+            // debugger
+        // ! below is addEventTrailToNull
+        // .then(r => {
+        //     this.setState({
+        //         addEventTrail: ""
+        //     })
+        // })
+        
     }
 
     removeFavorite = (e) => {
         const userTrailId = this.props.trailItem.user_trails.map(userTrail => userTrail.id)
-        fetch(`http://localhost:3000/user_trails/${userTrailId[0]}`, {
+        fetch(`http://trailsbackend1.herokuapp.com/${userTrailId[0]}`, {
                 'method': 'DELETE'
         })
         .then(r => {
