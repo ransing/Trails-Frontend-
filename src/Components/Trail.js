@@ -140,13 +140,15 @@ const options = {
                 }
             })
         })
-        .then(r => r.json())
-        .then( r => {
-            console.log(r)
-            // debugger
-        }
-        ,this.alertCreate()
-        )
+       
+        // .then(r => r.json())
+        // .then( r => {
+        //     console.log(r)
+        //     // debugger
+        // }
+        this.alertCreate();
+        // )
+
         this.setState({
             addEventTrail: ""
         })
