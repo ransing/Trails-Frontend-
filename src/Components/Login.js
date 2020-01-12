@@ -16,6 +16,7 @@ export default class Login extends Component {
     this.setState({
       [event.target.name]: event.target.value
     })
+    console.log(event.target.value)
   }
 
   logInSubmitted = (event) => {
@@ -76,7 +77,10 @@ export default class Login extends Component {
   }
 
     render() {
-    return <>
+
+    return (
+    <React.Fragment>
+    
     <h1 class="animated infinite pulse delay-2s" id="title" style={{"font-size": "48px" }} ></h1>
     <h2 id="title" style={{"font-size": "32px" }}></h2><br/>
       <ul>
@@ -87,14 +91,16 @@ export default class Login extends Component {
       {
         this.state.logIn 
         ? 
-        <div className="inset">
-          <h2 id="title" style={{"font-size": "24px" }}>Log In </h2>
-          <button class="accountbutton" style={{"font-family":"Special Elite", "font-size":"14 px", 'padding': '4px 12px', 'border-radius': '50px', 'margin-top': '16px'}} 
+       
+        <section id="login-div">
+        {/* <div className="inset"  > */}
+          <h2 id="title" style={{"font-size": "32px", "font-family":"Nunito" }}><b>Log In</b> </h2>
+          <button className="account" style={{ "font-size":"14 px", 'padding': '4px 12px', 'border-radius': '50px', 'margin-top': '16px'}} 
           onClick={ () => this.setState({ logIn: false }) }>Sign Up</button><br/>
           <br/>
                 <form className="form-signin" onSubmit={ this.logInSubmitted }>
-            <div>
-            <label  id="label" style={{"font-family":"Special Elite"}} htmlFor="log_in_username">Username</label>
+            <div style={{"margin-bottom":"16px", "padding":"20px"}}>
+            <label  id="label" style={{"font-family":"Nunito","font-color":"white", "font-weight":"bold" }} htmlFor="log_in_username">Username</label>
             <input  id="log_in_username" 
                     type="text" 
                     onChange={ this.handleChange /* for controlled form input status */ } 
@@ -104,8 +110,8 @@ export default class Login extends Component {
                     />
                     </div>
               <div>
-            <label  id="label" style={{"font-family":"Special Elite"}} htmlFor="log_in_password">Password</label>
-            <input  id="log_in_password" 
+            <label  id="label" style={{"font-family":"Nunito", "font-color":"white", "font-weight":"bold" }} htmlFor="log_in_password">Password</label>
+            <input  id="log_in_username"  
                     type="password" 
                     onChange={ this.handleChange } 
                     name="password" 
@@ -113,18 +119,22 @@ export default class Login extends Component {
                     value={ this.state.password } 
                     />
             </div>
-            <input onClick={this.logInSubmitted} class="submit-button" style={{'padding': '4px 12px', 'border-radius': '50px', 'margin-top': '16px', "font-family":"Special Elite", "font-size":"16 px"}} type="submit" />
+            <input onClick={this.logInSubmitted} class="submit-button" style={{'padding': '4px 12px', 'border-radius': '50px', 'margin-top': '16px', "font-family":"Nunito", "font-size":"16 px"}} type="submit" />
           </form>
-        </div>
+        {/* </div> */}
+        </section>
+
         :
-        <section>
-          <h2 id="title" style={{"font-size": "24px" }}>Sign up </h2><br/>
-          <button class="accountbutton" style={{"font-family":"Special Elite", "font-size":"14 px", 'padding': '4px 12px', 'border-radius': '50px', 'margin-top': '16px'}}onClick={ () => this.setState({ logIn: true }) }>Already have an account</button><br/>
+        
+        <section id="login-div" >
+        
+          <h2 style={{"font-size": "24px" }}>Sign up </h2><br/>
+          <button class="accountbutton" style={{"font-family":"Nunito", "font-size":"14 px", 'padding': '4px 12px', 'border-radius': '50px', 'margin-top': '16px'}}onClick={ () => this.setState({ logIn: true }) }>Already have an account</button><br/>
           <br/>
-          <form onSubmit ={this.signupSubmit}>
-            <div>
-            <label  style={{"font-family":"Special Elite", "font-size":"18 px"}} htmlFor="sign_up_username">Username</label>
-            <input  id="sign_up_username" 
+          <form className="form-signin" onSubmit ={this.signupSubmit} style={{"padding":"24px"}}>
+            <div >
+            <label   style={{"font-family":"Nunito", "font-size":"18 px", "font-color":"white"}} htmlFor="sign_up_username">Username</label>
+            <input  id="log_in_username" 
                     type="text" 
                     onChange={ this.handleChange } 
                     name="username" 
@@ -132,18 +142,21 @@ export default class Login extends Component {
                     value={ this.state.username } />
                     </div>
                     <div>
-            <label  style={{"font-family":"Special Elite", "font-size":"18 px"}} htmlFor="sign_up_password">Password</label>
-            <input  id="sign_up_password" 
+            <label  style={{"font-family":"Nunito", "font-size":"18 px", "font-color":"white"}} htmlFor="sign_up_password">Password</label>
+            <input  id="log_in_username"  
                     type="password" 
                     onChange={ this.handleChange } 
                     name="password" 
                     placeholder="new password"
                     value={ this.state.password } />
                     </div>
-            <input class="submit-button" style={{"font-family":"Special Elite", "font-size":"16 px", 'padding': '4px 12px', 'border-radius': '50px', 'margin-top': '16px'}} type="submit" />
+            <input class="submit-button" style={{"font-family":"Nunito", "font-size":"16 px", 'padding': '4px 12px', 'border-radius': '50px', 'margin-top': '16px'}} type="submit" />
           </form>
+  
         </section>
+        
       }
-    </>
-    }
-}
+    
+    </React.Fragment>
+    )
+} }

@@ -60,10 +60,10 @@ export default class EventCalendar extends React.Component {
   
 
   render() {
-      console.log(this.state.calendarEvents)
-      console.log(this.state.events)
+      // console.log(this.state.calendarEvents)
+      // console.log(this.state.events)
       const transformArray = this.state.events.map(({ name, date, event_trail }) => ({ details: name, start: date, url: event_trail }))
-      console.log(transformArray)
+      // console.log(transformArray)
 
     return (
         <div className="demo-app">

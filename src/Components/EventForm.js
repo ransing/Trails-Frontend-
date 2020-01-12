@@ -144,42 +144,32 @@ export default class EventForm extends Component {
             {/* dynamic event form begins here  */}
                 <div class="container" id="app">
                     <div class="add-product" class="{'open': formOpen}">
-                        <div class="button-copy" v-show="!formOpen" onClick="formOpen = true">Add Event for {this.props.addEventTrailName}</div>
-                        <form onSubmit="cancel()">
+                        <div id="eventName" class="button-copy" v-show="!formOpen" onClick="formOpen = true">Add Event for {this.props.addEventTrailName}</div>
+                        <form id="eventForm" onSubmit="cancel()">
 
                         <div class="form--field">
-                            <label>Event Name  *</label>
-                            <input type="text" class="form--element" name="name" v-model="productData.title" placeholder="name" required="" onChange={this.handleChange}/>
+                            <label id="eventNames">Event Name  *</label>
+                            <br/>
+                            <input id="formField" type="text" class="form--element fixed-width" name="name" v-model="productData.title" placeholder="name" required="" onChange={this.handleChange}/>
                         </div>
                         <div class="form--container -inline">
                             <div class="form--field -short">
                             <label>Event Detail *</label>
-                            <input type="text" class="form--element" name="detail" v-model="productData.rating" placeholder="detail" required="" onChange={this.handleChange}/>
+                            <br/>
+                            <input id="formField" type="text" class="form--element fixed-width" name="detail" v-model="productData.rating" placeholder="detail" required="" onChange={this.handleChange}/>
                             </div>
-                            <div class="form--field -short">
-                            <label>Event Duration *</label>
-                            <span class="form--price"></span>
-                            <input type="number" class="form--element" name="duration" v-model="productData.price" placeholder="duration in hours" required="" min="0" max="500" pattern="\d+(\.\d{2})?" onChange={this.handleChange}/>
-                            </div>
-                            <div class="form--field -short">
-                            
-                            <label>Event category</label>
-                            <span class="form--price"></span>
-                            <input type="text" class="form--element" name="category" v-model="productData.list_price" placeholder="Category" required=""  onChange={this.handleChange}/>
-                            
-                            <label>Date </label>
-                            <span class="form--price">$</span>
-
-                            {/* <Moment format="YYYY/MM/DD">{null}</Moment> */}
-
+                            <p>Date</p>
                             <DatePicker  selected={this.state.date}
                                          onChange={this.dateHandleChange} 
                                          placeholder="date"
+                                         id="date"
+                                        
                                       />
 
                             <br/>
-
+                            <p>Time</p>
                             <DatePicker selected={this.state.time} 
+                                        id="time"
                                         onChange={this.timeHandleChange} 
                                         placeholder="time"
                                         showTimeSelect
@@ -188,13 +178,32 @@ export default class EventForm extends Component {
                                         timeCaption="Time"
                                         dateFormat="hh:mm aa"/>
 
+                            <div class="form--field -short">
+                            <label>Event Duration *</label>
+                            <br/>
+                            <span class="form--price"></span>
+                            <input id="formField" type="number" class="form--element fixed-width" name="duration" v-model="productData.price" placeholder="duration in hours" required="" min="0" max="500" pattern="\d+(\.\d{2})?" onChange={this.handleChange}/>
+                            </div>
+                            <div class="form--field -short">
+                            
+                            <label>Event category</label>
+                            <br/>
+                            <span class="form--price"></span>
+                            <input type="text" class="form--element fixed-width" name="category" v-model="productData.list_price" placeholder="Category" required=""  onChange={this.handleChange}/>
+                            <br/>
+                            {/* <label>Date </label> */}
+                            <br/>
+                            <span class="form--price">$</span>
+
+                            {/* <Moment format="YYYY/MM/DD">{null}</Moment> */}
+
                             {/* <input type="text" class="form--element" name="list_price" v-model="productData.list_price" placeholder="Category" required="" min="0" max="500" pattern="\d+(\.\d{2})?"/> */}
                             
                             {/* <label>Time</label>
                             <span class="form--price">$</span>
                             <input type="text" class="form--element" name="list_price" v-model="productData.list_price" placeholder="Category" required="" min="0" max="500" pattern="\d+(\.\d{2})?"/> */}
                             
-                            <Moment format="YYYY/MM/DD">{null}</Moment>
+                            {/* <Moment format="YYYY/MM/DD">{null}</Moment> */}
                             
                             </div>
                             

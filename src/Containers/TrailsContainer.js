@@ -5,9 +5,10 @@ import Checkbox from "../Components/Checkbox";
 import { useAlert, withAlert } from "react-alert";
 import { positions, Provider } from "react-alert";
 import AlertTemplate from "react-alert-template-basic";
+import ReactSearchBox from 'react-search-box';
 
 
-const items = ["blue", "blueBlack", "black", "greenBlue", "dblack"];
+const items = ["veryEasy", "easy", "medium", "hard", "veryHard"];
 const options = {
   timeout: 3000,
   position: positions.BOTTOM_CENTER
@@ -21,11 +22,11 @@ class TrailsContainer extends Component {
     // trailAr: this.props.trailArray[0],
     visible: true,
     modalIsOpen: false,
-    blue: false,
-    blueBlack: false,
-    black: false,
-    greenBlue: false,
-    dblack: false,
+    veryEasy: false,
+    medium: false,
+    hard: false,
+    easy: false,
+    veryHard: false,
     colorChosen: ["blue", "green"]
     // oneColorChose: 'blue'
   };
@@ -59,11 +60,10 @@ class TrailsContainer extends Component {
   };
 
   justForAlert = () => {
-    console.log(this.props.alert)
+    console.log(this.props.alert);
     // const alert = this.props.alert;
     // alert.show("new favorite");
-
-  }
+  };
 
   //! checkbox code
 
@@ -72,19 +72,26 @@ class TrailsContainer extends Component {
   };
 
   toggleCheckbox = label => {
-    if (this.selectedCheckboxes.has(label)) {
-      this.selectedCheckboxes.delete(label);
-    } else {
-      this.selectedCheckboxes.add(label);
-    }
+    console.log(label);
     this.setState(
       {
         [label]: !this.state[label]
       },
-      () => {
-        console.log(label);
-      }
+      () => console.log(this.state)
     );
+    // if (this.selectedCheckboxes.has(label)) {
+    //   this.selectedCheckboxes.delete(label);
+    // } else {
+    //   this.selectedCheckboxes.add(label);
+    // }
+    // this.setState(
+    //   {
+    //     [label]: !this.state[label]
+    //   },
+    //   () => {
+    //     console.log(this.state.veryEasy, label);
+    //   }
+    // );
   };
 
   handleFormSubmit = formSubmitEvent => {
@@ -155,28 +162,28 @@ class TrailsContainer extends Component {
     // const trailArray = this.state.trailArr[0]
     // console.log(trailArray);
 
-    const blue = this.state.blue
+    const blue = this.state.veryEasy
       ? trailArrayFull.filter(trail => {
           return trail.difficulty === "blue";
         })
       : [];
 
-    const blueBlack = this.state.blueBlack
+    const blueBlack = this.state.medium
       ? trailArrayFull.filter(trail => {
           return trail.difficulty === "blueBlack";
         })
       : [];
-    const black = this.state.black
+    const black = this.state.hard
       ? trailArrayFull.filter(trail => {
           return trail.difficulty === "black";
         })
       : [];
-    const greenBlue = this.state.greenBlue
+    const greenBlue = this.state.easy
       ? trailArrayFull.filter(trail => {
           return trail.difficulty === "greenBlue";
         })
       : [];
-    const dblack = this.state.dblack
+    const dblack = this.state.veryHard
       ? trailArrayFull.filter(trail => {
           return trail.difficulty === "dblack";
         })
@@ -185,11 +192,11 @@ class TrailsContainer extends Component {
     // // const colorTrailFilter = trailArr ? trailArr.filter
 
     const sumArr =
-      this.state.blue ||
-      this.state.blueBlack ||
-      this.state.black ||
-      this.state.greenBlue ||
-      this.state.dblack
+      this.state.veryEasy ||
+      this.state.medium ||
+      this.state.hard ||
+      this.state.easy ||
+      this.state.veryHard
         ? [...blue, ...blueBlack, ...black, ...greenBlue, ...dblack]
         : trailArrayFull;
 
@@ -206,16 +213,28 @@ class TrailsContainer extends Component {
 
     return (
       <React.Fragment>
-        <div>
+        <div className="pure-control-group" 
+         >
           <input
+          style={{"margin-top": "68px" }}
             // name="query"
             value={this.state.query}
             placeholder="Search Trail..."
             onChange={this.handleSearch}
           />
         </div>
+          {/* <ReactSearchBox
+            placeholder="Placeholder"
+            inputBoxFontSize="20"
+            inputBoxHeight="20"
+            inputBoxWidth ="20"
+            inputBoxFontColor ="white"
+            value="Doe"
+            data={this.data}
+            callback={record => console.log(record)}
+          /> */}
 
-        <div style={{ display: "flex", "flex-direction": "row" }}>
+        <div style={{ "display": "flex", "flex-direction": "row", "margin-top": "28px" }}>
           Sort by Difficulty: {this.createCheckboxes()}
         </div>
 

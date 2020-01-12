@@ -129,19 +129,19 @@ export default class Event extends Component {
     
     render() {
         // console.log(this.props.event.trail.imgMedium);
-        console.log(this.state.weather.hourly.data
-            )
+        // console.log(this.state.weather.hourly.data)
+            
 
 
         const delButton = this.props.event.event_users_id_array.includes(this.props.userId) ?
                         (<div><button onClick={() => this.props.deleteEvent(this.props.event.id)}> Delete this event </button>
-                        <button onClick={this.editEvent}> Edit Event</button>  </div>) :
+                        <button className="eventButton" onClick={this.editEvent}> Edit Event</button>  </div>) :
                         null
 
 
         const attendEvent = this.props.event.event_users_id_array.includes(this.props.userId) ?
                             null :
-                        (<button onClick={this.attendEvent}> Attend this event </button>) 
+                        (<button className="eventButton" onClick={this.attendEvent}> Attend this event </button>) 
 
 
         // const transformArray = eventData.map(({ name, date, event_trail}) => ({ title: name,
@@ -151,7 +151,7 @@ export default class Event extends Component {
             {time,temperature}) => ({x:moment.unix(parseInt(time)).format('hh a'), y:temperature}
         ))                     
         
-        console.log(tempArray)
+        // console.log(tempArray)
 
 
         
@@ -175,7 +175,7 @@ export default class Event extends Component {
 
             <ModalBody>
                 <a href={this.toggleModal}>{null}</a>
-                <li>Summary: {null} </li>
+                <li>Summary: {this.state.weather.hourly.summary} </li>
                 <li>Condition Status: {null} </li>
                 <li>Condition Details: {null} </li>
                     <VictoryChart
@@ -227,25 +227,25 @@ export default class Event extends Component {
                         
                         <div class="card__content">
                         <h1 class="card__title">{null}</h1>
-                        <p>{this.props.event.name}</p>
-                        <br/>
+                        <p style={{"font-size":"30px", "font-weight":"bold"}}>{this.props.event.name}</p>
+                        
                         <a href={this.props.event.trail.url} target="_blank"> Trail: {this.props.event.trail.name}</a>
 
-                        <br/>
+                        
                         {attendEvent}
                         {/* <button onClick={this.attendEvent}> Attend Event</button> */}
 
                         <br/>
 
-                        <p> Date {moment(this.props.event.date).format('dddd')} {this.props.event.date} </p>
+                        <p style={{"color":"black"}}> Date {moment(this.props.event.date).format('dddd')} {this.props.event.date} -
+                        Time {moment(this.props.event.time).format('hh:mm')}</p>
 
-                        <button onClick={this.toggleModal}> Weather Modal</button>
+                        <button className="weatherButton" onClick={this.toggleModal}> Check the Weather</button>
 
-                        <p onMouseEnter={this.toggleHover} > {null} Weather {this.state.weatherSummary} </p>
+                        <p style={{"color":"black"}} onMouseEnter={this.toggleHover} > {null} Weather: {this.state.weatherSummary} </p>
 
                         <br/>
 
-                        <p>Time {moment(this.props.event.time).format('hh:mm')}</p>
                         
                         {delButton}
 

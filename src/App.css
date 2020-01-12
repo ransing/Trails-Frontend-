@@ -4,8 +4,11 @@
 
 
 
-
-
+/* 
+#stats {
+  color: black !important;
+  background-color: #79c4d1 !important
+} */
 
 .App {
   text-align: center;
@@ -26,8 +29,59 @@
   color: white;
 }
 
+#eventForm {
+  background-color: #94a5a8 !important;
+  opacity: .90 !important;
+  overflow: visible;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#date, #time
+{
+  z-index: 1;
+}
+
+#eventForm div input 
+{
+  width: 100%;
+}
+
+.fixed-width {
+  width: 280px !important;
+}
+
+.eventNames {
+  color: black !important;
+  font-family: Nunito !important;
+}
+
+#eventName {
+  font-size: 20px !important;
+  font-weight: bold !important
+}
+
+#formField {
+  background-color: white !important;
+  color: black !important
+}
+.weatherButton {
+  border-radius: 36px;
+  color: black ;
+  font-family: "Nunito"
+}
+
+.weatherButton:hover {
+  background-color:#67c0d0 !important
+}
+
 .App-link {
   color: #09d3ac;
+}
+
+#submit-button:hover {
+background-color: #67d067 !important
 }
 
 /* for add event form begins  */

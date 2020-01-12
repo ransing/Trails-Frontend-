@@ -82,7 +82,7 @@ class EventComments extends Component {
       };
     });
     // alert("new")
-    console.log(this.props.alert);
+    // console.log(this.props.alert);
     const alert = this.props.alert;
     alert.show("new comment received");
 
@@ -116,8 +116,8 @@ class EventComments extends Component {
   render() {
     const eventComment = this.state.commentArray.map(e => (
       <React.Fragment>
-        <li>
-          {e.details}-{e.user_name}{" "}
+        <li style={{"color": "black"}}>
+          <span style={{"font-weight": "bold"}}>{e.details}</span>-<span style={{"font-style": "oblique"}}>{e.user_name}{" "}</span>
           <button data-id={e.id} onClick={this.deleteComment}>
             X
           </button>{" "}
@@ -126,11 +126,11 @@ class EventComments extends Component {
     ));
 
     return (
-      <div>
+      <div style={{"padding":"3px"}}>
         <React.Fragment>
           {/* <Provider template={AlertTemplate} {...options}> */}
           <div>
-            Event Comments:
+            <span style={{"font-weight": "bold", "font-size":"16px"}}>Event Comments:</span>
             {eventComment}
           </div>
 
@@ -153,7 +153,7 @@ class EventComments extends Component {
             <Button
               id="submit-button"
               style={{
-                "font-family": "Special Elite",
+                "font-family": "Nunito",
                 "border-radius": "50px"
               }}
               type="submit"

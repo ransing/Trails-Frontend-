@@ -5,3 +5,26 @@ body {
     background-repeat: no-repeat;
     
 }
+
+.account {
+    font-family: 'Nunito', sans-serif !important;
+  }
+
+
+#login-div{
+    background-image: url("https://countrysideconservancy.org/wp-content/uploads/2017/11/lackawannatrails.jpg");
+    background-size: cover ;
+    background-repeat: repeat-x;
+}
+
+#log_in_username {
+    color:white
+}
+
+.form-signin {
+    background-color: #94a5a8 !important;
+    opacity: .90;
+}
+
+
+  

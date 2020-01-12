@@ -158,7 +158,7 @@ const options = {
                 'method': 'DELETE'
         })
         .then(r => {
-            debugger
+            // debugger
             this.alertRemoveFavorite()
             this.changeState()
             this.componentDidMount()
@@ -266,7 +266,7 @@ const options = {
     //ternary for favorite button 
     const favorite = this.props.trailItem.user_trails.length > 0  ?
                 <button type="primary" className="button-small button-error pure-button pure-button-primary"  onClick={() => this.removeFavorite(this.props.trailItem.id)}> Remove Favorite </button>  :
-                    <button type="primary" className="button-small button-error pure-button pure-button-primary" onClick={this.addFavorite}> Add Favorite </button> 
+                    <button id="trailButton"  onClick={this.addFavorite}> Add Favorite </button> 
 
 
     return (
@@ -282,7 +282,7 @@ const options = {
                 <li>Summary: {this.props.trailItem.summary} </li>
                 <li>Condition Status: {this.props.trailItem.condition} </li>
                 <li>Condition Details: {this.props.trailItem.conditionDetails} </li>
-                {vic}
+                {/* {vic} */}
                 {chartJs}
             </ModalBody>
 
@@ -304,7 +304,7 @@ const options = {
                     ref={(r) => this.flippy = r} // to use toggle method like this.flippy.toggle()
                     // if you pass isFlipped prop component will be controlled component.
                     // and other props, which will go to div
-                    style={{ width: '250px', height: '250px', "margin-bottom":"16px" }} /// these are optional style, it is not necessary
+                    style={{ width: '250px', height: '300px', "margin-bottom":"16px" }} /// these are optional style, it is not necessary
                 >
 
             <FrontSide
@@ -325,16 +325,19 @@ const options = {
                     <div  style={{"font-size":"17px"}}>
                     {this.props.trailItem.name}
                     </div>
-                    <button type="primary" className ="pure-button-primary pure-button button-stats button-small" onClick={this.toggleModal}> Stats </button>
+                    {/* className =" pure-button button-small" */}
+                    <button  id="stats"   onClick={this.toggleModal}> Stats </button>
                     <img src={`${this.props.trailItem.imgSmall}`} style={{"max-width": "100%", "max-height": "90%"}}></img>
             </FrontSide>
 
             <div className="App">
 
             <BackSide
-                    style={{ backgroundColor: '#175852'}}>
+                    style={{ backgroundColor: '#39dbc7'}}>
+                       
                     <img src={`${this.props.trailItem.imgMedium}`} style={{"max-width": "100%", "max-height": "100%"}}></img>
-                    <button type="primary" className="button-small pure-button pure-button-primary" onClick={this.addEvent}> Add Event </button>
+                    <button id="trailButton" onClick={this.addEvent}> Add Event </button>
+                    {/* type="primary" className="button-small pure-button pure-button-primary" */}
 
 
                     {favorite}
