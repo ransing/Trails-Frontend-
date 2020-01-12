@@ -56,7 +56,7 @@ export default class Event extends Component {
 
     attendEvent = () => {
         console.log("attend")
-        fetch("http://localhost:3000/user_events",{
+        fetch("http://trailsbackend1.herokuapp.com/user_events",{
             method: 'POST',
             headers: {
                 'Content-Type': 'Application/json',
