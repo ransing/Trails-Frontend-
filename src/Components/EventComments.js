@@ -74,7 +74,17 @@ class EventComments extends Component {
     //   });
   };
 
+  // const handleNewPost = post => {
+  //   if (user.id && post.user.id !== user.id) {
+  //     addPostWaiting(post)
+  //   } else if (user.id && post.user.id === user.id) {
+  //     addCreatedPost(post)
+  //   }
+  // } eventcomment.id , detials, user_id, event_id 
+
   addEventComment = eventComment => {
+
+    if (this.props.event.id == eventComment.event_id)
     this.setState(prevState => {
       return {
         commentArray: [...prevState.commentArray, eventComment],
