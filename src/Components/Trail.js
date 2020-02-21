@@ -44,7 +44,7 @@ const options = {
 
     componentDidMount(){
         // console.log(this.props.state)
-        fetch('http://localhost:3000/user_trails',{
+        fetch('http://febbackend.herokuapp.com/user_trails',{
             method: 'GET',
             headers: {
                 'Content-Type': 'Application/json',
@@ -97,7 +97,7 @@ const options = {
 
 
     addFavorite = (event) => {
-        fetch("http://localhost:3000/user_trails", {
+        fetch("http://febbackend.herokuapp.com/user_trails", {
             method: 'POST',
             headers: {
                 'Content-Type': 'Application/json',
@@ -124,7 +124,7 @@ const options = {
     onNewEventSubmit = (event) => {
         // e.preventDefault()
         console.log(event)
-        fetch("http://localhost:3000/events", {
+        fetch("http://febbackend.herokuapp.com/events", {
             method: 'POST',
             headers: {
                 'Content-Type': 'Application/json',
@@ -154,7 +154,7 @@ const options = {
 
     removeFavorite = (e) => {
         const userTrailId = this.props.trailItem.user_trails.map(userTrail => userTrail.id)
-        fetch(`http://localhost:3000/user_trails/${userTrailId[0]}`, {
+        fetch(`http://febbackend.herokuapp.com/user_trails/${userTrailId[0]}`, {
                 'method': 'DELETE'
         })
         .then(r => {

@@ -26,7 +26,7 @@ export default class EventCalendar extends React.Component {
 
 
   componentDidMount(){
-    fetch('http://localhost:3000/events')
+    fetch('http://febbackend.herokuapp.com/events')
         .then(r => r.json())
         .then(eventData => {
             // debugger
@@ -68,7 +68,7 @@ export default class EventCalendar extends React.Component {
     return (
         <div className="demo-app">
         <ScrollUpButton style={{width: 75}} ToggledStyle={{right: 100}}/>
-          <a href="http://localhost:3001/events"> Go to Top</a>
+          <a href="http://febbackend.herokuapp.com/events"> Go to Top</a>
         <div id="bottom" className="demo-app-top">
           <button onClick={this.toggleWeekends}>toggle weekends</button>&nbsp;
           <button onClick={this.gotoPast}>go to a date in the past</button>

@@ -12,7 +12,7 @@ function Map(props) {
     const [selectedTrail, setSelectedTrail] = useState(null)
 
   useEffect(() => {
-    fetch("http://localhost:3000/trails")
+    fetch("http://febbackend.herokuapp.com/trails")
     .then(res => res.json())
     .then(trails => {
       setTrails(trails);

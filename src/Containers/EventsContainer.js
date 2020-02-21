@@ -29,7 +29,7 @@ export default class EventsContainer extends Component {
 
     deleteEvent = (e) =>{
         console.log(e);
-        fetch(`http://localhost:3000/events/${e}`, {
+        fetch(`http://febbackend.herokuapp.com/${e}`, {
             'method': 'DELETE'
         })
         .then(r => {
@@ -41,7 +41,7 @@ export default class EventsContainer extends Component {
         const sendToken = localStorage.token
         console.log("mount")
         if(sendToken){
-            fetch("http://localhost:3000/profile",{
+            fetch("http://febbackend.herokuapp.com/profile",{
                 headers: {
                     'Authorization': `Bearer ${sendToken}`
                 }
@@ -62,7 +62,7 @@ export default class EventsContainer extends Component {
         }
 
 
-        fetch('http://localhost:3000/events')
+        fetch('http://febbackend.herokuapp.com/events')
         .then(r => r.json())
         .then(eventData => {
             // debugger

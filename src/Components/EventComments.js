@@ -49,7 +49,7 @@ class EventComments extends Component {
     // })
     const sendToken = localStorage.token;
     // debugger
-    fetch("http://localhost:3000/event_comments", {
+    fetch("http://febbackend.herokuapp.com/event_comments", {
       method: "POST",
       headers: {
         "Content-Type": "Application/json",
@@ -106,7 +106,7 @@ class EventComments extends Component {
   deleteComment = e => {
     // console.log(e.target.dataset.id);
     const dataSet = e.target.dataset.id;
-    fetch(`http://localhost:3000/event_comments/${e.target.dataset.id}`, {
+    fetch(`http://febbackend.herokuapp.com/event_comments/${e.target.dataset.id}`, {
       method: "DELETE"
     }).then(r => {
       //   this.forceUpdate();
