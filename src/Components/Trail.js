@@ -118,8 +118,6 @@ const options = {
             this.props.forceTrail(r)
                 }
         )
-        
-        
     }
 
 
@@ -284,7 +282,7 @@ const options = {
                 <li>Summary: {this.props.trailItem.summary} </li>
                 <li>Condition Status: {this.props.trailItem.condition} </li>
                 <li>Condition Details: {this.props.trailItem.conditionDetails} </li>
-                {vic}
+                {/* {vic} */}
                 {chartJs}
             </ModalBody>
 

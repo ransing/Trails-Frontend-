@@ -27,9 +27,12 @@ export default class Event extends Component {
                 data: []
             }
         },
+        weatherSummary: "",
+        icon: "",
         hover: false,
         modalIsOpen: false,
-        isZoomed: false 
+        isZoomed: false,
+        refresh: false 
 
     }
 
@@ -71,8 +74,11 @@ export default class Event extends Component {
         })
         .then(r => r.json())
         .then( r => {
-            this.alertCreate()
-
+            this.alertCreate();
+            this.componentDidMount()
+            this.setState({
+                refresh: !this.state.refresh
+            })
             // console.log(r);
         })
     }
@@ -80,7 +86,7 @@ export default class Event extends Component {
 
     editEvent = () => {
         console.log(this.props.userId, this.props.event.event_users_id_array, this.props.event.create_events.id);
-        if (this.props.event.event_users_id_array.includes(this.props.event.create_events.id)) 
+        if (this.props.event.create_users_id_array.includes(this.props.event.create_events.id)) 
         return true 
         else
         return false
@@ -102,19 +108,18 @@ export default class Event extends Component {
         const weatherDateT = weatherDate.concat(t)
         const weatherTime = moment(this.props.event.time).format('hh:mm:ss')
         const timeDarkSky = weatherDateT.concat(weatherTime)
-        // console.log(timeDarkSky)
+        console.log(timeDarkSky)
         fetch(`https://cors-anywhere.herokuapp.com/https://api.darksky.net/forecast/${process.env.REACT_APP_WEATHER_API_KEY}/${this.props.event.trail.latitude},${this.props.event.trail.longitude},${timeDarkSky}`, {
             
         })
         .then(r => r.json())
-        .then ( r => {
+        .then (r => {
             this.setState({
+                weather: r,
                 weatherSummary: r.hourly.summary,
-                icon: r.hourly.icon,
-                weather: r
-            })
-          
-        })
+                icon: r.hourly.icon
+            });
+        }, (()=> console.log()))
         
         } 
     
@@ -128,20 +133,27 @@ export default class Event extends Component {
             
     
     render() {
-        // console.log(this.props.event.trail.imgMedium);
-        console.log(this.state.weather.hourly.data
-            )
+        console.log(this.props.event.create_users_id_array);
+        // console.log(this.state.weather.hourly.data)
+        //     )
 
 
-        const delButton = this.props.event.event_users_id_array.includes(this.props.userId) ?
-                        (<div><button onClick={() => this.props.deleteEvent(this.props.event.id)}> Delete this event </button>
-                        <button onClick={this.editEvent}> Edit Event</button>  </div>) :
+        const delButton = this.props.event.create_users_id_array.includes(this.props.userId) ?
+                        (<div><button
+                        className="pure-button pure-button-secondary button-small"
+                            onClick={() => this.props.deleteEvent(this.props.event.id)}> Delete this event </button>
+                            <br/>
+                        <button 
+                        className="pure-button pure-button-secondary button-small"
+                            onClick={this.editEvent}> Edit Event</button>  </div>) :
                         null
 
 
-        const attendEvent = this.props.event.event_users_id_array.includes(this.props.userId) ?
+        const attendEvent = this.props.event.create_users_id_array.includes(this.props.userId) ?
                             null :
-                        (<button onClick={this.attendEvent}> Attend this event </button>) 
+                        (<button 
+                            className="pure-button pure-button-primary button-small"
+                            onClick={this.attendEvent}> Attend this event </button>) 
 
 
         // const transformArray = eventData.map(({ name, date, event_trail}) => ({ title: name,
@@ -151,7 +163,7 @@ export default class Event extends Component {
             {time,temperature}) => ({x:moment.unix(parseInt(time)).format('hh a'), y:temperature}
         ))                     
         
-        console.log(tempArray)
+        // console.log(tempArray)
 
 
         
@@ -171,13 +183,13 @@ export default class Event extends Component {
             {/**  modal weather  begins */}
 
             <Modal isOpen={this.state.modalIsOpen}>
-            <ModalHeader onClick={this.toggleModal}> Header </ModalHeader>
+            <ModalHeader onClick={this.toggleModal}> Click here to Exit </ModalHeader>
 
             <ModalBody>
                 <a href={this.toggleModal}>{null}</a>
-                <li>Summary: {null} </li>
-                <li>Condition Status: {null} </li>
-                <li>Condition Details: {null} </li>
+                <li>Summary: {this.state.weatherSummary} </li>
+                <li>Condition Status: {this.state.icon} </li>
+                
                     <VictoryChart
                         theme={VictoryTheme.material}
                         >
@@ -226,26 +238,29 @@ export default class Event extends Component {
                         </svg> */}
                         
                         <div class="card__content">
-                        <h1 class="card__title">{null}</h1>
-                        <p>{this.props.event.name}</p>
                         <br/>
+                        {/* <h1 class="card__title">{null}</h1> */}
+                        <h2>{this.props.event.name}</h2>
+                        {/* <br/> */}
                         <a href={this.props.event.trail.url} target="_blank"> Trail: {this.props.event.trail.name}</a>
 
                         <br/>
                         {attendEvent}
                         {/* <button onClick={this.attendEvent}> Attend Event</button> */}
 
-                        <br/>
+                        {/* <br/> */}
 
-                        <p> Date {moment(this.props.event.date).format('dddd')} {this.props.event.date} </p>
+                        <h5 style={{"margin-bottom":"-1px"}}><span style={{"font-size":"110%"}}>When-</span> {moment(this.props.event.date).format('dddd')} {this.props.event.date} </h5>
+                        <h5 style={{"margin-top":"-2px"}}><span style={{"font-size":"110%"}}>Time- </span> {moment(this.props.event.time).format('hh:mm')}</h5>
 
-                        <button onClick={this.toggleModal}> Weather Modal</button>
+                        <button 
+                        class="pure-button pure-button-warning"
+                        onClick={this.toggleModal}> Weather Modal</button>
 
-                        <p onMouseEnter={this.toggleHover} > {null} Weather {this.state.weatherSummary} </p>
+                        <h5  style={{"font-size":"110%","font-color":"black"}} onMouseEnter={this.toggleHover} > {null} <span style={{"font-size":"110%"}} >Weather </span>{this.state.weatherSummary}</h5>
 
-                        <br/>
+                        {/* <br/> */}
 
-                        <p>Time {moment(this.props.event.time).format('hh:mm')}</p>
                         
                         {delButton}
 

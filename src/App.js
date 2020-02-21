@@ -106,7 +106,7 @@ class App extends React.Component {
                 </div> */}
 
                   <div class="header" style={{"margin-bottom":"28px"}}>
-                    <div class="home-menu pure-menu pure-menu-horizontal pure-menu-fixed">
+                    <div class="home-menu pure-menu pure-menu-horizontal pure-menu-fixed" style={{"background-color":"white"}}>
                         
                         <a  href="#" >
                                 {this.state.username ? 

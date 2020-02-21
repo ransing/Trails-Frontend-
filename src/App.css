@@ -3,10 +3,6 @@
 @import '~antd/dist/antd.css';
 
 
-
-
-
-
 .App {
   text-align: center;
 }
@@ -154,11 +150,56 @@ label {
   }
 }
 
+.react-datepicker-ignore-onclickoutside {
+  /* width: 100% !important; */
+}
+
+.react-datepicker__input-container input {
+    /* width: 100%; */
+    /* display: block; */
+}
+
+.react-datepicker__input-container{
+  /* width: inherit; */
+  /* margin-left: 2px !important; */
+}
+
+.react-datepicker-wrapper {
+  /* width: 100%; */
+}
+
+.react-datepicker-ignore-onclickoutside{
+  /* width: 50px !important ; 
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  z-index: 2 !important; */
+}
+
+.react-datepicker-popper{
+  position: absolute!important;
+  top: -100px !important;
+  left: -50px !important;
+  overflow: auto !important
+}
+
+/* #form-id{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 8px 12px;
+}
+
+#form-id div
+{
+  width: 90%;
+} */
+
 .form--field {
   width: 420px;
-  margin: 10px 0;
+  margin:10px ;
   &.-short {
-    width: 120px;
+    width: 80px;
   }
 }
 
@@ -183,6 +224,7 @@ label {
   }
 }
 
+
 .form--element {
   background-color: #fff;
   border: 1px solid #ECECEC;
@@ -190,7 +232,7 @@ label {
   font-size: 14px;
   line-height: 28px;
   padding: 0 4px;
-  color: #3D3D3D;
+  color: rgb(238, 232, 232);
   width: 100%;
   margin: 4px 0;
   box-sizing: border-box;
@@ -238,3 +280,30 @@ a {
 }
 
 /* for add event form ends  */
+
+
+/* pure button  */
+
+/* pure-button pure-button-primary */
+.pure-button.pure-button-primary {
+  background: rgb(228, 197, 112) !important;
+  color: #f02394 !important;
+  border-radius: 5px;
+  font-size: 100%;
+  width: -5px !important
+}
+
+.pure-button.pure-button-secondary {
+  background: rgb(173, 121, 121) !important;
+  color: #0b530f !important;
+  border-radius: 5px;
+  font-size: 100%;
+  margin-top: 5px;
+}
+
+.pure-button.pure-button-warning {
+  background: rgb(155, 80, 132) !important;
+  color: #0d0b13 !important;
+  border-radius: 5px;
+  font-size: 100%;
+}

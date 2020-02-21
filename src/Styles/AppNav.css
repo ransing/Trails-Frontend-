@@ -71,16 +71,30 @@ label {
  * I want my pure-button elements to look a little different
  */
 .pure-button {
-    background-color: #1f8dd6;
-    color: white;
+    background-color: #d371c3;
+    color: rgb(17, 12, 12);
     padding: 0.5em 2em;
     border-radius: 5px;
-    opacity: 0.1;
+    opacity: 0.9;
 }
 
 a.pure-button-primary {
-    background: white;
-    color: #1f8dd6;
+    background: white ;
+    background-color: #1f8dd6 !important;
+    border-radius: 5px;
+    font-size: 120%;
+}
+
+a.pure-button-secondary {
+    background: white ;
+    color: #1fd61f !important;
+    border-radius: 5px;
+    font-size: 120%;
+}
+
+a.pure-button-warning {
+    background: white !important;
+    color: #411fd6 !important;
     border-radius: 5px;
     font-size: 120%;
 }

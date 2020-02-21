@@ -13,6 +13,7 @@ import {ActionCableProvider} from 'react-actioncable-provider';
 
 
 ReactDOM.render(
+        //!for heroku use this 'wss://trails9.herokuapp.com/cable'
         <ActionCableProvider url = 'ws://localhost:3000/cable'>
         <BrowserRouter> 
             <App />

@@ -163,7 +163,7 @@ class EventComments extends Component {
             <Button
               id="submit-button"
               style={{
-                "font-family": "Special Elite",
+                "font-family": "Noto Sans",
                 "border-radius": "50px"
               }}
               type="submit"

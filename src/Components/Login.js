@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import '../Styles/Login.css'
+import '../Styles/Login.css';
+import YouTube from 'react-youtube';
 
 export default class Login extends Component {
 
@@ -75,10 +76,25 @@ export default class Login extends Component {
     // when fetch is done...get token
   }
 
+  _onReady(event) {
+    // access to player in all event handlers via event.target
+    event.target.pauseVideo();
+  }
+
     render() {
+
+      const opts = {
+        height: '390',
+        width: '640',
+        playerVars: { // https://developers.google.com/youtube/player_parameters
+          autoplay: 0
+        }
+      };
     return <>
-    <h1 class="animated infinite pulse delay-2s" id="title" style={{"font-size": "48px" }} ></h1>
-    <h2 id="title" style={{"font-size": "32px" }}></h2><br/>
+    
+    <h1></h1>
+    <h1 class="animated infinite pulse delay-2s" id="title" style={{"font-size": "48px" }} > Trail.blzr </h1>
+    <h2 id="title" style={{"font-size": "32px" }}></h2>Recreational Outdoor Meetups<br/>
       <ul>
         {
           this.state.errors.map(error => <li>{ error }</li>)
@@ -89,13 +105,15 @@ export default class Login extends Component {
         ? 
         <div className="inset">
           <h2 id="title" style={{"font-size": "24px" }}>Log In </h2>
-          <button class="accountbutton" style={{"font-family":"Special Elite", "font-size":"14 px", 'padding': '4px 12px', 'border-radius': '50px', 'margin-top': '16px'}} 
+          <button class="accountbutton" style={{"font-family":"Noto Sans", "font-size":"14 px", 'padding': '4px 12px', 'border-radius': '50px', 'margin-top': '16px'}} 
           onClick={ () => this.setState({ logIn: false }) }>Sign Up</button><br/>
           <br/>
                 <form className="form-signin" onSubmit={ this.logInSubmitted }>
             <div>
-            <label  id="label" style={{"font-family":"Special Elite"}} htmlFor="log_in_username">Username</label>
-            <input  id="log_in_username" 
+            <label  id="label" style={{"font-family":"Noto Sans", "color":"white"}} htmlFor="log_in_username">Username</label>
+            <input  
+                    style={{"font-family":"Noto Sans", "font-size":"18 px", "color":"white"}}
+                    id="log_in_username" 
                     type="text" 
                     onChange={ this.handleChange /* for controlled form input status */ } 
                     name="username"
@@ -104,8 +122,10 @@ export default class Login extends Component {
                     />
                     </div>
               <div>
-            <label  id="label" style={{"font-family":"Special Elite"}} htmlFor="log_in_password">Password</label>
-            <input  id="log_in_password" 
+            <label  id="label1" style={{"font-family":"Noto Sans","color":"white"}} htmlFor="log_in_password">Password</label>
+            <input  
+                    style={{"font-family":"Noto Sans", "font-size":"18 px", "color":"white"}}
+                    id="log_in_password" 
                     type="password" 
                     onChange={ this.handleChange } 
                     name="password" 
@@ -113,18 +133,20 @@ export default class Login extends Component {
                     value={ this.state.password } 
                     />
             </div>
-            <input onClick={this.logInSubmitted} class="submit-button" style={{'padding': '4px 12px', 'border-radius': '50px', 'margin-top': '16px', "font-family":"Special Elite", "font-size":"16 px"}} type="submit" />
+            <input onClick={this.logInSubmitted} class="submit-button" style={{'padding': '4px 12px', 'border-radius': '50px', 'margin-top': '16px', "font-family":"Noto Sans", "font-size":"16 px"}} type="submit" />
           </form>
         </div>
         :
         <section>
           <h2 id="title" style={{"font-size": "24px" }}>Sign up </h2><br/>
-          <button class="accountbutton" style={{"font-family":"Special Elite", "font-size":"14 px", 'padding': '4px 12px', 'border-radius': '50px', 'margin-top': '16px'}}onClick={ () => this.setState({ logIn: true }) }>Already have an account</button><br/>
+          <button class="accountbutton" style={{"font-family":"Noto Sans", "font-size":"14 px", 'padding': '4px 12px', 'border-radius': '50px', 'margin-top': '16px'}}onClick={ () => this.setState({ logIn: true }) }>Already have an account</button><br/>
           <br/>
           <form onSubmit ={this.signupSubmit}>
             <div>
-            <label  style={{"font-family":"Special Elite", "font-size":"18 px"}} htmlFor="sign_up_username">Username</label>
-            <input  id="sign_up_username" 
+            <label  style={{"font-family":"Noto Sans", "font-size":"18 px", "color":"white"}} htmlFor="sign_up_username">Username</label>
+            <input  
+                    style={{"font-family":"Noto Sans", "font-size":"18 px", "color":"white"}}
+                    id="sign_up_username" 
                     type="text" 
                     onChange={ this.handleChange } 
                     name="username" 
@@ -132,18 +154,29 @@ export default class Login extends Component {
                     value={ this.state.username } />
                     </div>
                     <div>
-            <label  style={{"font-family":"Special Elite", "font-size":"18 px"}} htmlFor="sign_up_password">Password</label>
-            <input  id="sign_up_password" 
+            <label  style={{"font-family":"Noto Sans", "font-size":"18 px", "color":"white"}} htmlFor="sign_up_password">Password</label>
+            <input  
+                    style={{"font-family":"Noto Sans", "font-size":"18 px", "color":"white"}}
+                    id="sign_up_password" 
                     type="password" 
                     onChange={ this.handleChange } 
                     name="password" 
                     placeholder="new password"
                     value={ this.state.password } />
                     </div>
-            <input class="submit-button" style={{"font-family":"Special Elite", "font-size":"16 px", 'padding': '4px 12px', 'border-radius': '50px', 'margin-top': '16px'}} type="submit" />
+            <input class="submit-button" style={{"font-family":"Noto Sans", "font-size":"16 px", 'padding': '4px 12px', 'border-radius': '50px', 'margin-top': '16px'}} type="submit" />
           </form>
         </section>
       }
+
+      <h3>Watch the demo here</h3>
+      <YouTube
+        
+        videoId="j_NW0a5vQIg"
+        opts={opts}
+        onReady={this._onReady}
+      />
     </>
+    
     }
 }

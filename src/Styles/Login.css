@@ -1,7 +1,8 @@
 body {
     /* background-image: url("https://countrysideconservancy.org/wp-content/uploads/2017/11/lackawannatrails.jpg"); */
-    background-color:'#68705C';
-    background-size: 1800px 820px;
+    background-color:'#96A4B6' !important;
+    /* background-size: 1800px 820px; */
+    background-size: auto;
     background-repeat: no-repeat;
     
 }

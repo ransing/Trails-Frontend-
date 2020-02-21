@@ -7,7 +7,7 @@ import EventCalendar from '../Components/EventCalendar'
 
 
 const items = [
-    'My events'
+    'My Events'
 ]
 
 export default class EventsContainer extends Component {
@@ -36,11 +36,6 @@ export default class EventsContainer extends Component {
             this.componentDidMount()
         })
     }
-
-    
-   
-
-
 
     componentDidMount(){
         const sendToken = localStorage.token
@@ -85,7 +80,7 @@ export default class EventsContainer extends Component {
       }
 
     toggleCheckbox = label => {
-        console.log("chec");
+        console.log(this.state.userId);
         if (this.selectedCheckboxes.has(label)) {
           this.selectedCheckboxes.delete(label);
         } else {
@@ -125,19 +120,22 @@ export default class EventsContainer extends Component {
 
 
          const eventArr = this.state.events.filter(event => {
-                return event.name.includes(this.state.query.toLowerCase())
+                return event.name.toLowerCase().includes(this.state.query.toLowerCase())
             })
             // debugger
-        console.log(this.state.events)
-
-
-        const finalArr = 
-                this.state.myEvent === true ?
-                eventArr.filter(event => {
+            
+            
+            const finalArr = 
+            this.state.myEvent === true ?
+            eventArr.filter(event => {
                 return event.create_users_id_array.includes(this.state.userId)
             })
             : 
-            eventArr
+            eventArr.sort(function(a,b){
+                return b.id - a.id
+            })
+            
+            console.log(finalArr)
 
         const event = finalArr.map(event => 
                 <Event event={event} deleteEvent={this.deleteEvent} userId={this.state.userId} userName={this.state.userName}/>
