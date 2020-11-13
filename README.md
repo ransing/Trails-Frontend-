@@ -21,6 +21,11 @@
 * HTML5(JSX)
 * CSS (customized)
 * Animate.css
+* DarkSky weather API
+* React Image Zoo
+* Trails API
+* WebSockets 
+
  
 ## Installation
 1) Install and run 
